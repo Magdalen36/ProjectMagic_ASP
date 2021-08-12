@@ -10,7 +10,7 @@ namespace ProjectMagic_ASP.Services.Bases
         where U : class
 
     {
-        bool Delete(int d);
+        bool Delete(int id);
         IEnumerable<T> GetAll();
         U GetById(int id);
         void Insert(U form);

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<ProjectMagic_ASP.Models.EditionModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "../Shared/_AdminLayout.cshtml";
+}
+
+<h3>Editions</h3>
+<p></p>
+
+<p class="create">
+    <a asp-action="Create"><i class="create-icon fas fa-plus-square"></i> Nouvelle édition</a>
+</p>
+
+<table class="table">
+    @*<thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NbMax)
+            </th>
+            <th></th>
+        </tr>
+    </thead>*@
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NbMax)
+            </td>
+            @*<td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td*@>
+
+            <td class="listIcons">
+                <a asp-controller="Edition"
+                   asp-action="Update"
+                   asp-route-id="@item.Id"><i class="update-icon fas fa-edit"></i></a>
+
+                <span> - </span>
+
+                <a asp-controller="Edition"
+                   asp-action="Delete"
+                   asp-route-id="@item.Id"
+                   class="delete-link"><i class="delete-icon fas fa-trash-alt"></i></a>
+            </td>
+
+        </tr>
+        }
+    </tbody>
+</table>

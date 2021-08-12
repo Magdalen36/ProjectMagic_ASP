@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ProjectMagic_ASP.Models.CardModel>
+
+@{
+    ViewData["Title"] = "ListCardByEdition";
+}
+
+<h3>@Model.FirstOrDefault().EditionName</h3>
+
+<table class="table">
+    <thead>
+        <tr>          
+            <th>
+                Nom
+            </th>
+            <th>
+                Coût
+            </th>
+            <th>
+                Rareté
+            </th>
+            <th>
+                Type de carte
+            </th>
+            <th>
+                Couleur
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.CardName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.RarityName)
+            </td>
+ 
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeCardName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ColorName)
+            </td>
+
+            <td>
+                
+                @Html.ActionLink("Details", "Details", new {  id=item.Id }) |
+                
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

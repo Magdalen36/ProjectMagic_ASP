@@ -5,10 +5,7 @@ using System.Threading.Tasks;
 
 namespace ProjectMagic_ASP.Models.Forms
 {
-    public class EditionForm
+    public class CardForm
     {
-        //public int Id { get; set; }
-        public string Name { get; set; }
-        public int NbMax { get; set; }
     }
 }

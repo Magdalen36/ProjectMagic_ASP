@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using ProjectMagic.Services;
 using ProjectMagic_ASP.Models;
 using ProjectMagic_ASP.Models.Forms;
+using ProjectMagic_ASP.Services;
 using ProjectMagic_ASP.Services.Bases;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ namespace ProjectMagic_ASP
             services.AddControllersWithViews();
 
             services.AddScoped<IService<EditionModel, EditionForm>, EditionService>();
+            services.AddScoped<IService<CardModel, CardForm>, CardService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

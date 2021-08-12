@@ -3,19 +3,33 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ProjectMagic_ASP</title>
+    <title>@ViewData["Title"] - MagicCard - Administration </title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> @* Framework CSS Bootstrap *@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/d5278ac82e.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/administrator.css" />
 </head>
 <body>
+
     <header>
-
-        <partial name="_menu" />
-
+        <h2><i class="add-icon fas fa-chart-line" style="color: #EE6C4D;"></i>Dashboard</h2>
+        <div class="buttons">
+            <a><i></i></a>
+        </div>
     </header>
-    <div class="container">
+
+    <div id="content" class="d-flex">
+        <aside id="menu">
+            <nav>
+                <ul>
+                    <li><a asp-area="Admin" asp-controller="Edition" asp-action="Index"><i class="menu-icon fab fa-buffer"></i> Editions</a></li>                   
+                    @*<li><a asp-controller="Skill" asp-action="Index"><i class="menu-icon fa fa-book"></i> Skills</a></li>
+                    <li><a asp-controller="User" asp-action="Index"><i class="menu-icon fas fa-user-circle"></i> User</a></li>
+                    <li><a asp-controller="Profile" asp-action="Index"><i class="menu-icon fas fa-fingerprint"></i> Profile</a></li>*@
+                </ul>
+            </nav>
+        </aside>
+
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -23,13 +37,16 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - ProjectMagic_ASP - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - TechnofuturTIC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Home</a>
         </div>
     </footer>
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 
     @if (TempData["success"] != null)

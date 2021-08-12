@@ -4,22 +4,19 @@
     ViewData["Title"] = "ListEdition";
 }
 
-<h1>ListEdition</h1>
+<h3>Les éditions</h3>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Id)
+            </th>*@
+            <th>
+                Nom
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NbMax)
+                Nombre de cartes
             </th>
             <th></th>
         </tr>
@@ -27,9 +24,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.Id)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
@@ -37,9 +34,9 @@
                 @Html.DisplayFor(modelItem => item.NbMax)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                
+                @Html.ActionLink("Liste des cartes pour cette édition", "ListCardByEdition", new { id=item.Id}) 
+                
             </td>
         </tr>
 }

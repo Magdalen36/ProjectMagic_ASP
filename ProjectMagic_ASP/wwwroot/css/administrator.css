@@ -1,0 +1,147 @@
+﻿body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #FAF9F9;
+}
+
+header {
+    padding: 50px 50px;
+    height: 75px;
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    background-color: #555B6E;
+    color: white;
+    z-index: 1;
+    text-align: left;
+}
+
+#content {
+    width: 100%;
+    flex: 1;
+    z-index: 0;
+}
+
+footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    background-color: #555B6E;
+    border-top: none;
+}
+
+.container {
+    text-align: left;
+    margin-left: 15px;
+    color: white;
+}
+
+#menu {
+    margin: 10px 25px 0px 25px;
+    min-height: 100%;
+    width: 250px;
+    border-right: 1px solid #eee;
+    background-color: #555B6E;
+    border-top: 10px solid #EE6C4D;
+}
+
+main {
+    flex: 1;
+    min-height: 95%;
+    padding: 25px;
+    padding-top: 10px;
+}
+
+a {
+    color: #EE6C4D;
+}
+
+    a:hover {
+        text-decoration: none;
+        color: #3D5A80;
+    }
+
+#menu ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+    #menu ul > li {
+        height: 50px;
+        border-bottom: 1px solid #eee;
+    }
+
+#menu a {
+    color: white;
+    display: block;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+    #menu a:hover {
+        text-decoration: none;
+        background-color: #EE6C4D;
+        color: #14213d;
+    }
+
+.menu-icon, .create-icon {
+    margin: 0 15px;
+}
+
+.delete-icon, .update-icon {
+    margin: 0 10px;
+}
+
+
+input[type=submit] {
+    background-color: #98C1D9;
+    color: black;
+    border: none;
+}
+
+    input[type=submit]:hover {
+        background-color: #EE6C4D;
+    }
+
+h3 {
+    padding: 5px 0px 11px 0px;
+    text-align: right;
+    border-bottom: 1px solid #555B6E;
+    width: 70%;
+    opacity: 0.8;
+}
+
+.table {
+    width: 70%;
+}
+
+.create {
+    border: 1px solid #EE6C4D;
+    padding: 2px 5px;
+    width: 35%;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.table thead th {
+    border: none;
+}
+
+.table td, .table th {
+    border-top: none;
+    border-bottom: 1px solid #EE6C4D;
+}
+
+.listIcons {
+    text-align: right;
+}
+
+.listNames {
+    text-align: center;
+}
