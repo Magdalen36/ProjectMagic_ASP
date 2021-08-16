@@ -12,7 +12,7 @@ namespace ProjectMagic_ASP.Services.Bases
     {
         bool Delete(int id);
         IEnumerable<T> GetAll();
-        U GetById(int id);
+        T GetById(int id);
         void Insert(U form);
         void Update(U form);
     }

@@ -45,9 +45,15 @@ namespace ProjectMagic.Services
             }
         }
 
-        public EditionForm GetById(int id)
+        public EditionModel GetById(int id)
         {
-            throw new NotImplementedException();
+            HttpClient client = new HttpClient();
+            Uri adressUri = new Uri(baseAddress.ToString() + "Edition/" + id.ToString());
+            client.BaseAddress = adressUri;
+            HttpResponseMessage response = client.GetAsync(adressUri).Result;
+            if (!response.IsSuccessStatusCode) throw new HttpRequestException();
+            string jsonString = GetJsonContent(response);
+            return JsonConvert.DeserializeObject<EditionModel>(jsonString);
         }
 
         public void Insert(EditionForm form)
@@ -59,14 +65,22 @@ namespace ProjectMagic.Services
             {              
                 HttpResponseMessage response = GetResponseMessage(client.PostAsync, entityJson);
                 if (!response.IsSuccessStatusCode) throw new HttpRequestException();
-                string jsonString = GetJsonContent(response);
-                //return JsonConvert.DeserializeObject<EditionModel>(jsonString);
+                string jsonString = GetJsonContent(response);                
             }
         }
 
+        //Error (405)
         public void Update(EditionForm form)
         {
-            throw new NotImplementedException();
+            EditionModel model = new EditionModel { Name = form.Name, NbMax = form.NbMax, Id = form.Id};
+            JsonContent entityJson = JsonContent.Create(model);
+
+            using (HttpClient client = CreateHttpClient())
+            {
+                HttpResponseMessage response = GetResponseMessage(client.PutAsync, entityJson);
+                if (!response.IsSuccessStatusCode) throw new HttpRequestException();
+                string jsonString = GetJsonContent(response);
+            }
         }
 
         public IEnumerable<EditionModel> GetByName(string name)

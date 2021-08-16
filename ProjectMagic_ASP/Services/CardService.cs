@@ -26,12 +26,24 @@ namespace ProjectMagic_ASP.Services
 
         public IEnumerable<CardModel> GetAll()
         {
-            throw new NotImplementedException();
+            using (HttpClient client = CreateHttpClient())
+            {
+                HttpResponseMessage response = GetResponseMessage(client.GetAsync);
+                if (!response.IsSuccessStatusCode) throw new HttpRequestException();
+                string jsonString = GetJsonContent(response);
+                return JsonConvert.DeserializeObject<IEnumerable<CardModel>>(jsonString);
+            }
         }
 
-        public CardForm GetById(int id)
+        public CardModel GetById(int id)
         {
-            throw new NotImplementedException();
+            HttpClient client = new HttpClient();
+            Uri adressUri = new Uri(baseAddress.ToString() + "Card/" + id);
+            client.BaseAddress = adressUri;
+            HttpResponseMessage response = client.GetAsync(adressUri).Result;
+            if (!response.IsSuccessStatusCode) throw new HttpRequestException();
+            string jsonString = GetJsonContent(response);
+            return JsonConvert.DeserializeObject<CardModel>(jsonString);
         }
 
         public void Insert(CardForm form)

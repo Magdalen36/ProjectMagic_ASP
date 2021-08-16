@@ -1,0 +1,114 @@
+﻿@model IEnumerable<ProjectMagic_ASP.Models.CardModel>
+
+@{
+    ViewData["Title"] = "ListCard";
+}
+
+<h1>Liste des cartes</h1>
+
+<form asp-controller="Viewer" asp-action="ListCard">
+
+    <div class="form-group">
+        <label class="control-label">Nom</label>
+        <input type="text" class="form-control" name="name" />
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Couleur</label>
+        <select name="color" class="form-control">
+            <option value="">-</option>
+            <option value="Rouge">Rouge</option>
+            <option value="Bleu">Bleu</option>
+            <option value="Vert">Vert</option>
+            <option value="Blanc">Blanc</option>
+            <option value="Noir">Noir</option>
+            <option value="Multicolore">Multicolore</option>
+            <option value="Incolore">Incolore</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Type</label>
+        <select name="type" class="form-control">
+            <option value="">-</option>
+            <option value="Créatures">Créatures</option>
+            <option value="Artefacts">Artefacts</option>
+            <option value="Auras">Auras</option>
+            <option value="Enchantements">Enchantements</option>
+            <option value="Ephémères">Ephémères</option>
+            <option value="Arpenteurs">Arpenteurs</option>
+            <option value="Rituels">Rituels</option>
+            <option value="Terrains">Terrains</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Rareté</label>
+        <select name="rarity" class="form-control">
+            <option value="">-</option>
+            <option value="Mythiques">Mythiques</option>
+            <option value="Rares">Rares</option>
+            <option value="Peu communes">Peu communes</option>
+            <option value="Communes">Communes</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Recherche" />
+    </div>
+
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nom
+            </th>
+            <th>
+                Coût
+            </th>
+            <th>
+                Rareté
+            </th>
+            <th>
+                Type de carte
+            </th>
+            <th>
+                Couleur
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CardName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.RarityName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeCardName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ColorName)
+            </td>
+
+            <td>
+
+                @Html.ActionLink("Détails de la carte", "GetCardById", new { id = item.Id }) 
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

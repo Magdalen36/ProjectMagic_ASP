@@ -7,7 +7,7 @@ namespace ProjectMagic_ASP.Models.Forms
 {
     public class EditionForm
     {
-        //public int Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public int NbMax { get; set; }
     }

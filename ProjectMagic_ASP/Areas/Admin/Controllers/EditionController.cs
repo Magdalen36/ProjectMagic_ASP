@@ -43,6 +43,7 @@ namespace ProjectMagic_ASP.Areas.Admin.Controllers
                 return View(form);
             }
         }
+
         public IActionResult Delete([FromRoute] int id)
         {
             if(_editionService.Delete(id))
@@ -56,5 +57,32 @@ namespace ProjectMagic_ASP.Areas.Admin.Controllers
             //pas de vue, on redirige direct
             return RedirectToAction("Index");
         }
+
+        //affichage
+        public IActionResult Update([FromRoute] int id)
+        {
+            EditionModel model = _editionService.GetById(id);
+            EditionForm form = new EditionForm { Name = model.Name, NbMax = model.NbMax };
+
+            if (form == null) return NotFound();
+
+            return View(form);
+        }
+        //Traitement
+        [HttpPost]
+        public IActionResult Update(EditionForm form)
+        {
+            if (ModelState.IsValid)
+            {
+                _editionService.Update(form);
+                TempData["success"] = "Modification effectuée";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(form);
+            }
+        }
+
     }
 }
