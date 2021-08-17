@@ -21,13 +21,14 @@ namespace ProjectMagic.Services
 
         }
 
-        //chippotage, à voir si il n'y a pas moyen de rendre ça plus propre
+       
         public bool Delete(int id)
         {    
             HttpClient client = new HttpClient();
-            Uri adressUri = new Uri(baseAddress.ToString() +"Edition/"+ id.ToString());
-            client.BaseAddress = adressUri;
-            HttpResponseMessage response = client.DeleteAsync(adressUri).Result;
+                //plus propre en mettant ça direct dans le deleteAsync
+                //Uri adressUri = new Uri(baseAddress.ToString() +"Edition/"+ id.ToString());
+                //client.BaseAddress = adressUri;
+            HttpResponseMessage response = client.DeleteAsync(new Uri(baseAddress.ToString() + "Edition/" + id.ToString())).Result;
             if (!response.IsSuccessStatusCode) throw new HttpRequestException();
             string jsonString = GetJsonContent(response);
             
@@ -48,9 +49,7 @@ namespace ProjectMagic.Services
         public EditionModel GetById(int id)
         {
             HttpClient client = new HttpClient();
-            Uri adressUri = new Uri(baseAddress.ToString() + "Edition/" + id.ToString());
-            client.BaseAddress = adressUri;
-            HttpResponseMessage response = client.GetAsync(adressUri).Result;
+            HttpResponseMessage response = client.GetAsync(new Uri(baseAddress.ToString() + "Edition/" + id.ToString())).Result;
             if (!response.IsSuccessStatusCode) throw new HttpRequestException();
             string jsonString = GetJsonContent(response);
             return JsonConvert.DeserializeObject<EditionModel>(jsonString);
@@ -69,26 +68,23 @@ namespace ProjectMagic.Services
             }
         }
 
-        //Error (405)
         public void Update(EditionForm form)
         {
             EditionModel model = new EditionModel { Name = form.Name, NbMax = form.NbMax, Id = form.Id};
             JsonContent entityJson = JsonContent.Create(model);
 
-            using (HttpClient client = CreateHttpClient())
-            {
-                HttpResponseMessage response = GetResponseMessage(client.PutAsync, entityJson);
-                if (!response.IsSuccessStatusCode) throw new HttpRequestException();
-                string jsonString = GetJsonContent(response);
-            }
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = client.PutAsync(new Uri(baseAddress.ToString() + "Edition/" + form.Id.ToString()), entityJson).Result;
+            if (!response.IsSuccessStatusCode) throw new HttpRequestException();
+            string jsonString = GetJsonContent(response);
+
         }
+
 
         public IEnumerable<EditionModel> GetByName(string name)
         {
             HttpClient client = new HttpClient();
-            Uri adressUri = new Uri(baseAddress.ToString() + "Edition/SearchByName/" + name);
-            client.BaseAddress = adressUri;
-            HttpResponseMessage response = client.GetAsync(adressUri).Result;
+            HttpResponseMessage response = client.GetAsync(new Uri(baseAddress.ToString() + "Edition/SearchByName/" + name)).Result;
             if (!response.IsSuccessStatusCode) throw new HttpRequestException();
             string jsonString = GetJsonContent(response);
             return JsonConvert.DeserializeObject<IEnumerable<EditionModel>>(jsonString);
