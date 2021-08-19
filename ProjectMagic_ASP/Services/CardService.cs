@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace ProjectMagic_ASP.Services
@@ -21,7 +22,12 @@ namespace ProjectMagic_ASP.Services
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = client.DeleteAsync(new Uri(baseAddress.ToString() + "Card/" + id.ToString())).Result;
+            if (!response.IsSuccessStatusCode) throw new HttpRequestException();
+            string jsonString = GetJsonContent(response);
+
+            return true;
         }
 
         public IEnumerable<CardModel> GetAll()
@@ -38,9 +44,7 @@ namespace ProjectMagic_ASP.Services
         public CardModel GetById(int id)
         {
             HttpClient client = new HttpClient();
-            Uri adressUri = new Uri(baseAddress.ToString() + "Card/" + id);
-            client.BaseAddress = adressUri;
-            HttpResponseMessage response = client.GetAsync(adressUri).Result;
+            HttpResponseMessage response = client.GetAsync(new Uri(baseAddress.ToString() + "Card/" + id)).Result;
             if (!response.IsSuccessStatusCode) throw new HttpRequestException();
             string jsonString = GetJsonContent(response);
             return JsonConvert.DeserializeObject<CardModel>(jsonString);
@@ -48,20 +52,32 @@ namespace ProjectMagic_ASP.Services
 
         public void Insert(CardForm form)
         {
-            throw new NotImplementedException();
+            CardModel model = new CardModel { CardName = form.CardName, Cost =form.Cost, PS = form.PS, Description=form.Description, ColorId = form.ColorId, EditionId=form.EditionId, RarityId=form.RarityId, TypeCardId = form.TypeId, SousTypeCardId = form.SousTypeId };
+            JsonContent entityJson = JsonContent.Create(model);
+
+            using (HttpClient client = CreateHttpClient())
+            {
+                HttpResponseMessage response = GetResponseMessage(client.PostAsync, entityJson);
+                if (!response.IsSuccessStatusCode) throw new HttpRequestException();
+                string jsonString = GetJsonContent(response);
+            }
         }
 
         public void Update(CardForm form)
         {
-            throw new NotImplementedException();
+            CardModel model = new CardModel { Id= form.Id, CardName = form.CardName, Cost = form.Cost, PS = form.PS, Description = form.Description, ColorId = form.ColorId, EditionId = form.EditionId, RarityId = form.RarityId, TypeCardId = form.TypeId, SousTypeCardId = form.SousTypeId };
+            JsonContent entityJson = JsonContent.Create(model);
+
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = client.PutAsync(new Uri(baseAddress.ToString() + "Card/" + form.Id.ToString()), entityJson).Result;
+            if (!response.IsSuccessStatusCode) throw new HttpRequestException();
+            string jsonString = GetJsonContent(response);
         }
 
         public IEnumerable<CardModel> GetByEditionId(int id)
         {
             HttpClient client = new HttpClient();
-            Uri adressUri = new Uri(baseAddress.ToString() + "Card/SearchByEditionId/" + id);
-            client.BaseAddress = adressUri;
-            HttpResponseMessage response = client.GetAsync(adressUri).Result;
+            HttpResponseMessage response = client.GetAsync(new Uri(baseAddress.ToString() + "Card/SearchByEditionId/" + id)).Result;
             if (!response.IsSuccessStatusCode) throw new HttpRequestException();
             string jsonString = GetJsonContent(response);
             return JsonConvert.DeserializeObject<IEnumerable<CardModel>>(jsonString);
