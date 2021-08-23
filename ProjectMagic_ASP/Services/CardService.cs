@@ -50,6 +50,15 @@ namespace ProjectMagic_ASP.Services
             return JsonConvert.DeserializeObject<CardModel>(jsonString);
         }
 
+        public IEnumerable<CardModel> GetRandom(int nbr)
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = client.GetAsync(new Uri(baseAddress.ToString() + "Card/GetRandom/" + nbr)).Result;
+            if (!response.IsSuccessStatusCode) throw new HttpRequestException();
+            string jsonString = GetJsonContent(response);
+            return JsonConvert.DeserializeObject<IEnumerable<CardModel>>(jsonString);
+        }
+
         public void Insert(CardForm form)
         {
             CardModel model = new CardModel { CardName = form.CardName, Cost =form.Cost, PS = form.PS, Description=form.Description, ColorId = form.ColorId, EditionId=form.EditionId, RarityId=form.RarityId, TypeCardId = form.TypeId, SousTypeCardId = form.SousTypeId };

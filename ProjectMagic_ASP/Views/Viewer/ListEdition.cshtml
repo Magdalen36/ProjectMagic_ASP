@@ -41,9 +41,15 @@
                 @Html.DisplayFor(modelItem => item.NbMax)
             </td>
             <td>
-                
-                @Html.ActionLink("Liste des cartes pour cette édition", "ListCardByEdition", new { id=item.Id}) 
-                
+
+                @{ if (item.IsCard == true)
+                    { @Html.ActionLink("Liste des cartes pour cette édition", "ListCardByEdition", new { id = item.Id })}
+                else
+                {<text> Pas de carte encodée </text>}
+                }
+
+                @*@Html.ActionLink("Liste des cartes pour cette édition", "ListCardByEdition", new { id = item.Id })*@
+
             </td>
         </tr>
 }

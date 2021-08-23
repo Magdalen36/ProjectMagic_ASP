@@ -1,0 +1,87 @@
+﻿@model IEnumerable<ProjectMagic_ASP.Models.UserModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p class="create">
+    <a asp-action="Create"><i class="create-icon fas fa-plus-square"></i> Nouvel utilisateur</a>
+</p>
+
+<table class="table">
+    @*<thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BirthDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+           
+            <th>
+                Role
+            </th>
+            <th></th>
+        </tr>
+    </thead>*@
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+
+            <td>
+                @*@Html.DisplayFor(modelItem => item.RoleId)*@
+                @{ if (item.RoleId == 2)
+                    { <text>Utilisateur</text>}
+                   else
+                    {<text> Administrateur </text>}
+                }
+
+            </td>
+            @*<td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>*@
+
+            <td class="listIcons">
+                <a asp-controller="User"
+                   asp-action="Update"
+                   asp-route-id="@item.Id"><i class="update-icon fas fa-edit"></i></a>
+
+                <span> - </span>
+
+                <a asp-controller="User"
+                   asp-action="Delete"
+                   asp-route-id="@item.Id"
+                   class="delete-link"><i class="delete-icon fas fa-trash-alt"></i></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

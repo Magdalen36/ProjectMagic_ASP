@@ -10,5 +10,7 @@ namespace ProjectMagic_ASP.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int NbMax { get; set; }
+
+        public bool? IsCard { get; set; }
     }
 }

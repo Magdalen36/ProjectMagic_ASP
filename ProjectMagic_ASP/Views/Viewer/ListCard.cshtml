@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "ListCard";
-    Layout = "../Shared/_AdminLayout.cshtml";
+    //Layout = "../Shared/_AdminLayout.cshtml";
 }
 
 <h1>Liste des cartes</h1>
@@ -60,6 +60,12 @@
 
 </form>
 
+<h4>Voici 30 cartes aléatoires</h4>
+
+<p class="create">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Viewer" asp-action="ListCard"><i class="create-icon fas fa-plus-square"></i> Nouveau tirage aléatoire</a>
+</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -82,8 +88,10 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
         <tr>
+
             <td>
                 @Html.DisplayFor(modelItem => item.CardName)
             </td>
@@ -100,13 +108,39 @@
                 @Html.DisplayFor(modelItem => item.TypeCardName)
             </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.ColorName)
-            </td>
+            @{ if (item.ColorName == "Rouge")
+                {
+                    <td style="color:#FF0000"> Rouge </td>
+                }
+                if (item.ColorName == "Bleu")
+                {
+                    <td style="color:#0000FF"> Bleu </td>
+                }
+                if (item.ColorName == "Vert")
+                {
+                    <td style="color:#4cff00"> Vert </td>
+                }
+                if (item.ColorName == "Noir")
+                {
+                    <td style="color:#000000"> Noir </td>
+                }
+                if (item.ColorName == "Blanc")
+                {
+                    <td style="color:#808080"> Blanc </td>
+                }
+                if (item.ColorName == "Multicolore")
+                {
+                    <td style="color:#b200ff"> Multicolor </td>
+                }
+                if (item.ColorName == "Incolore")
+                {
+                    <td style="color:#FFd000"> Incolore </td>
+ }
+            }
 
             <td>
 
-                @Html.ActionLink("Détails de la carte", "GetCardById", new { id = item.Id }) 
+                @Html.ActionLink("Détails de la carte", "GetCardById", new { id = item.Id })
 
             </td>
         </tr>
