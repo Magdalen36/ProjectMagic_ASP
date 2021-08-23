@@ -18,7 +18,8 @@
     <div class="form-group">
         <label class="control-label">Couleur</label>
 
-        @Html.DropDownList("color", new SelectList(Model.ListColors), "Couleur", new { @class = "form-control" })
+
+     @Html.DropDownList("color", new SelectList(Model.ListColors.Select(l =>l.Name)), "Couleur", new { @class = "form-control" })
 
         @*<select name="color" class="form-control">
             <option value="">-</option>
@@ -37,7 +38,7 @@
     <div class="form-group">
         <label class="control-label">Type</label>
 
-        @Html.DropDownList("type", new SelectList(Model.ListTypes), "Types", new { @class = "form-control" })
+        @Html.DropDownList("type", new SelectList(Model.ListTypes.Select(l => l.Name)), "Types", new { @class = "form-control" })
 
         @*<select name="type" class="form-control">
             <option value="">-</option>
@@ -54,7 +55,7 @@
 
     <div class="form-group">
         <label class="control-label">Rareté</label>
-        @Html.DropDownList("rarity", new SelectList(Model.ListRaretes), "Rareté", new { @class = "form-control" })
+        @Html.DropDownList("rarity", new SelectList(Model.ListRaretes.Select(l => l.Name)), "Rareté", new { @class = "form-control" })
         @*<select name="rarity" class="form-control">
             <option value="">-</option>
             <option value="Mythiques">Mythiques</option>
@@ -140,7 +141,7 @@
                 }
                 if (item.ColorName == "Multicolore")
                 {
-                    <td style="color:#b200ff"> Multicolor </td>
+                    <td style="color:#b200ff"> Multicolore </td>
                 }
                 if (item.ColorName == "Incolore")
                 {

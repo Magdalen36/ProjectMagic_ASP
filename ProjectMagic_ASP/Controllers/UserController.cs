@@ -40,8 +40,7 @@ namespace ProjectMagic_ASP.Controllers
                 TempData["succes"] = "Insertion effectuée";
                 HttpContext.Session.Set<bool>("IsLogged", true);
 
-
-                return RedirectToAction("Index", "Home", new { area = "Member" });
+                return RedirectToAction("Index", "Collection", new { id = HttpContext.Session.Get<int>("UserId") } ); 
             }
             else
             {
@@ -67,8 +66,8 @@ namespace ProjectMagic_ASP.Controllers
                 {
                     HttpContext.Session.Set<bool>("IsLogged", true);
                     HttpContext.Session.Set<int>("UserId", userId);
-                    
-                    return RedirectToAction("Index", "Home", new { area = "Member" });
+
+                    return RedirectToAction("Index", "Collection", new { id = HttpContext.Session.Get<int>("UserId") });
                 }
                 else
                 {

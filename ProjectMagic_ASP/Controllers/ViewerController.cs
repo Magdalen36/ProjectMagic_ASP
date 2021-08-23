@@ -15,11 +15,17 @@ namespace ProjectMagic_ASP.Controllers
     {
         private readonly IService<EditionModel, EditionForm> _editionService;
         private readonly IService<CardModel, CardForm> _cardService;
+        private readonly IService<ColorModel, ColorForm> _colorService;
+        private readonly IService<TypeModel, TypeForm> _typeService;
+        private readonly IService<RarityModel, RarityForm> _rarityService;
 
-        public ViewerController(IService<EditionModel, EditionForm> es, IService<CardModel, CardForm> cs)
+        public ViewerController(IService<EditionModel, EditionForm> es, IService<CardModel, CardForm> cs, IService<ColorModel, ColorForm> co, IService<TypeModel, TypeForm> ts, IService<RarityModel, RarityForm> rs)
         {
             _editionService = es;
             _cardService = cs;
+            _colorService = co;
+            _typeService = ts;
+            _rarityService = rs;
         }
 
 
@@ -71,12 +77,13 @@ namespace ProjectMagic_ASP.Controllers
         {
             CardFullModel cfm = new CardFullModel();
 
-            //IEnumerable<CardModel> modelRandom = (_cardService as CardService).GetRandom(30);
             cfm.ListCards = (_cardService as CardService).GetRandom(30);
+            cfm.ListColors = _colorService.GetAll();
+            cfm.ListRaretes = _rarityService.GetAll();
+            cfm.ListTypes = _typeService.GetAll();
 
             if (name is not null || color is not null || type is not null  || rarity is not null )
-            {              
-                //IEnumerable<CardModel> model = _cardService.GetAll();
+            {                     
                 cfm.ListCards = _cardService.GetAll();
 
                 if (name is not null)
@@ -92,15 +99,5 @@ namespace ProjectMagic_ASP.Controllers
             return View(cfm);
             
         }
-
-        //public IActionResult SearchByEditionName() //affichage du form avec le nom 
-        //{
-        //    return View();
-        //}
-        //public IActionResult SearchByEditionName(string name) //affichage de la liste des éditions avec réception du nom
-        //{
-        //    IEnumerable<EditionModel> model = (_editionService as EditionService).GetByName(name);
-        //    return View(model);
-        //}
     }
 }
