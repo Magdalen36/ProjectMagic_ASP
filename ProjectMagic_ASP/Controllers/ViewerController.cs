@@ -42,7 +42,7 @@ namespace ProjectMagic_ASP.Controllers
                     IEnumerable<CardModel> cm = (_cardService as CardService).GetByEditionId(item.Id);
                     if (cm.Count() > 0) { item.IsCard = true; } else { item.IsCard = false; }
                 }
-                catch(Exception e)
+                catch(Exception)
                 {
 
                 }
@@ -69,26 +69,27 @@ namespace ProjectMagic_ASP.Controllers
 
         public IActionResult ListCard(string name, string color, string type, string rarity)
         {
-            IEnumerable<CardModel> modelRandom = (_cardService as CardService).GetRandom(30);
+            CardFullModel cfm = new CardFullModel();
+
+            //IEnumerable<CardModel> modelRandom = (_cardService as CardService).GetRandom(30);
+            cfm.ListCards = (_cardService as CardService).GetRandom(30);
 
             if (name is not null || color is not null || type is not null  || rarity is not null )
             {              
-                IEnumerable<CardModel> model = _cardService.GetAll();
+                //IEnumerable<CardModel> model = _cardService.GetAll();
+                cfm.ListCards = _cardService.GetAll();
 
                 if (name is not null)
-                    model = model.Where(m => m.CardName.ToUpper().Contains(name.ToUpper()));
+                    cfm.ListCards = cfm.ListCards.Where(m => m.CardName.ToUpper().Contains(name.ToUpper()));
                 if (color is not null)
-                    model = model.Where(m => m.ColorName.ToUpper().Contains(color.ToUpper()));
+                    cfm.ListCards = cfm.ListCards.Where(m => m.ColorName.ToUpper().Contains(color.ToUpper()));
                 if (type is not null)
-                    model = model.Where(m => m.TypeCardName.ToUpper().Contains(type.ToUpper()));
+                    cfm.ListCards = cfm.ListCards.Where(m => m.TypeCardName.ToUpper().Contains(type.ToUpper()));
                 if (rarity is not null)
-                    model = model.Where(m => m.RarityName.ToUpper().Contains(rarity.ToUpper()));
-                return View(model);
+                    cfm.ListCards = cfm.ListCards.Where(m => m.RarityName.ToUpper().Contains(rarity.ToUpper()));
+                
             }
-            else
-            {
-                return View(modelRandom);
-            }
+            return View(cfm);
             
         }
 

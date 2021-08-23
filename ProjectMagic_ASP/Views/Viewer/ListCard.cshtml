@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProjectMagic_ASP.Models.CardModel>
+﻿@model ProjectMagic_ASP.Models.CardFullModel
 
 @{
     ViewData["Title"] = "ListCard";
@@ -11,12 +11,16 @@
 
     <div class="form-group">
         <label class="control-label">Nom</label>
+       
         <input type="text" class="form-control" name="name" />
     </div>
 
     <div class="form-group">
         <label class="control-label">Couleur</label>
-        <select name="color" class="form-control">
+
+        @Html.DropDownList("color", new SelectList(Model.ListColors), "Couleur", new { @class = "form-control" })
+
+        @*<select name="color" class="form-control">
             <option value="">-</option>
             <option value="Rouge">Rouge</option>
             <option value="Bleu">Bleu</option>
@@ -25,12 +29,17 @@
             <option value="Noir">Noir</option>
             <option value="Multicolore">Multicolore</option>
             <option value="Incolore">Incolore</option>
-        </select>
+        </select>*@
     </div>
+
+    
 
     <div class="form-group">
         <label class="control-label">Type</label>
-        <select name="type" class="form-control">
+
+        @Html.DropDownList("type", new SelectList(Model.ListTypes), "Types", new { @class = "form-control" })
+
+        @*<select name="type" class="form-control">
             <option value="">-</option>
             <option value="Créatures">Créatures</option>
             <option value="Artefacts">Artefacts</option>
@@ -40,18 +49,19 @@
             <option value="Arpenteurs">Arpenteurs</option>
             <option value="Rituels">Rituels</option>
             <option value="Terrains">Terrains</option>
-        </select>
+        </select>*@
     </div>
 
     <div class="form-group">
         <label class="control-label">Rareté</label>
-        <select name="rarity" class="form-control">
+        @Html.DropDownList("rarity", new SelectList(Model.ListRaretes), "Rareté", new { @class = "form-control" })
+        @*<select name="rarity" class="form-control">
             <option value="">-</option>
             <option value="Mythiques">Mythiques</option>
             <option value="Rares">Rares</option>
             <option value="Peu communes">Peu communes</option>
             <option value="Communes">Communes</option>
-        </select>
+        </select>*@
     </div>
 
     <div class="form-group">
@@ -88,7 +98,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model)
+@foreach (var item in Model.ListCards)
 {
         <tr>
 

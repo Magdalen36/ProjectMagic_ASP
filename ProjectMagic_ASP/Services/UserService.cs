@@ -72,5 +72,14 @@ namespace ProjectMagic_ASP.Services
             if (!response.IsSuccessStatusCode) throw new HttpRequestException();
             string jsonString = GetJsonContent(response);
         }
+
+        public int Login(string email, string password)
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = client.GetAsync(new Uri(baseAddress.ToString() + "User/Login/" + email + "/" + password)).Result;
+            if (!response.IsSuccessStatusCode) throw new HttpRequestException();
+            string jsonString = GetJsonContent(response);
+            return JsonConvert.DeserializeObject<int>(jsonString);
+        }
     }
 }

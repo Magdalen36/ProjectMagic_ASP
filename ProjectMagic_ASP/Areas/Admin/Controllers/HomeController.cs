@@ -12,17 +12,9 @@ namespace ProjectMagic_ASP.Areas.Admin.Controllers
     [Area("Admin")]
     public class HomeController : Controller
     {
-        private readonly IService<EditionModel, EditionForm> _editionService;
-
-        public HomeController(IService<EditionModel, EditionForm> es)
-        {
-            _editionService = es;
-        }
 
         public IActionResult Index()
         {
-            //IEnumerable<EditionModel> model = _editionService.GetAll();
-            //return View(model);
             return View();
         }
     }

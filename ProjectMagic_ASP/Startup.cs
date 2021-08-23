@@ -9,6 +9,7 @@ using ProjectMagic_ASP.Models;
 using ProjectMagic_ASP.Models.Forms;
 using ProjectMagic_ASP.Services;
 using ProjectMagic_ASP.Services.Bases;
+using ProjectMagic_ASP.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,15 @@ namespace ProjectMagic_ASP
         {
             services.AddControllersWithViews();
 
+            services.AddSession(
+               options => {
+                   options.IdleTimeout = TimeSpan.FromMinutes(15);
+                   options.Cookie.Name = "ProjectMagicCookie";
+                   options.Cookie.HttpOnly = true;
+                   options.Cookie.IsEssential = true;
+                }
+           );
+
             services.AddScoped<IService<EditionModel, EditionForm>, EditionService>();
             services.AddScoped<IService<CardModel, CardForm>, CardService>();
             services.AddScoped<IService<UserModel, UserForm>, UserService>();
@@ -50,6 +60,9 @@ namespace ProjectMagic_ASP
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSession();
+            SessionUtils.Services = app.ApplicationServices;
 
             app.UseRouting();
 
