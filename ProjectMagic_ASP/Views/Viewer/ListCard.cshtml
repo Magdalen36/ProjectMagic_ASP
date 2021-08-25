@@ -146,14 +146,31 @@
                 if (item.ColorName == "Incolore")
                 {
                     <td style="color:#FFd000"> Incolore </td>
- }
+                }
             }
 
-            <td>
-
-                @Html.ActionLink("Détails de la carte", "GetCardById", new { id = item.Id })
+            <td class="listIcons">
+                <a asp-area=""
+                   asp-controller="Viewer"
+                   asp-action="GetCardById"
+                   asp-route-id="@item.Id"><i class="far fa-question-circle"></i>Détail</a>
 
             </td>
+
+                @if ((TempData["isLogged"]) != null && ((bool)TempData["isLogged"]) == true)
+                {
+        <td class="listIcons">
+
+            @*<a asp-area=""
+        asp-controller="Collection"
+        asp-action="Insert"
+        asp-route-id="@item.Id"
+        asp-route-from="ListCard"><i class="fas fa-trophy"></i></a>*@
+            @*@Html.ActionLink("", "Insert", new { controller = "Collection", id = item.Id, from = new UrlModel { Controller = "Viewer", Action = "ListCard" } }, new { @class = "fas fa-trophy" })*@
+            @Html.ActionLink("", "Insert", new { controller = "Collection", id = item.Id, fromController = "Viewer", fromAction = "ListCard" }, new { @class = "fas fa-trophy" })
+
+        </td>
+                }
         </tr>
 }
     </tbody>

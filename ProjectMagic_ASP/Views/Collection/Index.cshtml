@@ -1,0 +1,75 @@
+﻿@model IEnumerable<ProjectMagic_ASP.Models.CollectionModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Bonjour @Model.Select(m => m.LastName).FirstOrDefault()</h2>
+<h3>Votre collection</h3>
+
+
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                Exemplaires
+            </th>
+           
+
+            <th>
+                Nom
+            </th>
+            <th>
+                Edition
+            </th>
+            <th>
+                Couleur
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.NbCard) <span>x</span>
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.CardName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EditionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ColorName)
+            </td>
+            <td class="listIcons">
+
+                <a asp-area=""
+                   asp-controller="Viewer"
+                   asp-action="GetCardById"
+                   asp-route-id="@item.Id"><i class="far fa-question-circle"></i>Détail</a> 
+            </td>
+
+            <td class="listIcons">
+                @*Ajouter et enlever*@
+                | @Html.ActionLink("", "Insert", new { controller = "Collection", id = item.CardId, fromController = "Collection", fromAction = "Index", fromMotiv = "plus" }, new { @class = "far fa-plus-square" })
+                @if (item.NbCard > 1)@Html.ActionLink("", "Insert", new { controller = "Collection", id = item.CardId, fromController = "Collection", fromAction = "Index", fromMotiv = "moins" }, new { @class = "far fa-minus-square" }) |
+            </td>
+
+
+            <td class="listIcons">
+                <a asp-controller="Collection"
+                   asp-action="Delete"
+                   asp-route-id="@item.Id"
+                   class="delete-link"><i class="delete-icon fas fa-trash-alt"></i></a>
+            </td>
+
+
+        </tr>
+}
+    </tbody>
+</table>

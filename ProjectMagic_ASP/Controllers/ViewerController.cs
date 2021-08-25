@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using ProjectMagic.Services;
 using ProjectMagic_ASP.Models;
 using ProjectMagic_ASP.Models.Forms;
 using ProjectMagic_ASP.Services;
 using ProjectMagic_ASP.Services.Bases;
+using ProjectMagic_ASP.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,18 +65,22 @@ namespace ProjectMagic_ASP.Controllers
 
         public IActionResult ListCardByEdition([FromRoute] int id)
         {
+            TempData["isLogged"] = HttpContext.Session.Get<bool>("IsLogged");
             IEnumerable<CardModel> model = (_cardService as CardService).GetByEditionId(id);
             return View(model);
         }
 
         public IActionResult GetCardById([FromRoute] int id)
         {
+            TempData["isLogged"] = HttpContext.Session.Get<bool>("IsLogged");
             CardModel model = _cardService.GetById(id);
             return View(model);
         }
 
         public IActionResult ListCard(string name, string color, string type, string rarity)
         {
+            TempData["isLogged"] = HttpContext.Session.Get<bool>("IsLogged");
+
             CardFullModel cfm = new CardFullModel();
 
             cfm.ListCards = (_cardService as CardService).GetRandom(30);

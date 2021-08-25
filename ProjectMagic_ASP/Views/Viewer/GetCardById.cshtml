@@ -5,110 +5,120 @@
 }
 
 <h3>@Model.CardName</h3>
+@if ((TempData["isLogged"]) != null && ((bool)TempData["isLogged"]) == true)
+{
+<p>
+    @Html.ActionLink("", "Insert", new { controller = "Collection", id = Model.Id, fromController = "Viewer", fromAction = "GetCardById", fromId = Model.Id }, new { @class = "fas fa-trophy" })
+</p>
+}
+    <div>
 
-<div>
-    
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CardName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CardName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cost)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Cost)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PS)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PS)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Premium)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Premium)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EditionId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EditionId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EditionName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EditionName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RarityId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RarityId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RarityName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RarityName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TypeCardId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TypeCardId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TypeCardName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TypeCardName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SousTypeCardId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SousTypeCardId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SousTypeCardName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SousTypeCardName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ColorId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ColorId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ColorName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ColorName)
-        </dd>
-    </dl>
-</div>
-<div>
-    
-    <a asp-action="Index">Retour à la liste</a>
-</div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Id)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CardName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CardName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Cost)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Cost)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PS)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PS)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Premium)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Premium)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.EditionId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.EditionId)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.EditionName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.EditionName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.RarityId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.RarityId)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.RarityName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.RarityName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TypeCardId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TypeCardId)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TypeCardName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TypeCardName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.SousTypeCardId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.SousTypeCardId)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.SousTypeCardName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.SousTypeCardName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ColorId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ColorId)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ColorName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ColorName)
+            </dd>
+        </dl>
+    </div>
+    <div>
+
+            <a asp-action="Index">Retour à la liste de toutes les cartes</a> </br>
+
+        @if ((TempData["isLogged"]) != null && ((bool)TempData["isLogged"]) == true)
+        {
+            <a asp-action="Index" asp-controller="Collection">Retour à votre collection</a>
+        }
+    </div>

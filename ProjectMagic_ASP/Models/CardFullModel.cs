@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using ProjectMagic_ASP.Models.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace ProjectMagic_ASP.Models
         public IEnumerable<ColorModel> ListColors { get; set; }
         public IEnumerable<TypeModel> ListTypes { get; set; }
         public IEnumerable<RarityModel> ListRaretes { get; set; }
+        
 
         //Maybe ?
         //public List<SelectListItem> ListColors = new List<SelectListItem>();

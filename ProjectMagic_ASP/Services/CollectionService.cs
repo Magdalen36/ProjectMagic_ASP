@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace ProjectMagic_ASP.Services
@@ -37,6 +38,15 @@ namespace ProjectMagic_ASP.Services
             }
         }
 
+        public IEnumerable<CollectionModel> GetAllById(int id)
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = client.GetAsync(new Uri(baseAddress.ToString() + "Collection/CollectionUser/" + id.ToString())).Result;
+            if (!response.IsSuccessStatusCode) throw new HttpRequestException();
+            string jsonString = GetJsonContent(response);
+            return JsonConvert.DeserializeObject<IEnumerable<CollectionModel>>(jsonString); ;
+        }
+
         public CollectionModel GetById(int id)
         {
             HttpClient client = new HttpClient();
@@ -48,25 +58,42 @@ namespace ProjectMagic_ASP.Services
 
         public void Insert(CollectionForm form)
         {
-            throw new NotImplementedException();
+            CollectionModel model = new CollectionModel { UserId = form.UserId, CardId = form.CardId, NbCard = form.NbCard };
+            JsonContent entityJson = JsonContent.Create(model);
+
+            using (HttpClient client = CreateHttpClient())
+            {
+                HttpResponseMessage response = GetResponseMessage(client.PostAsync, entityJson);
+                if (!response.IsSuccessStatusCode) throw new HttpRequestException();
+                string jsonString = GetJsonContent(response);
+            }
+        }
+
+        //Version pour une insertion sans formulaire
+        public bool Insert(int cardId, int userId)
+        {
+            CollectionModel model = new CollectionModel { UserId = userId, CardId = cardId, NbCard = 1 };
+            JsonContent entityJson = JsonContent.Create(model);
+
+            using (HttpClient client = CreateHttpClient())
+            {
+                HttpResponseMessage response = GetResponseMessage(client.PostAsync, entityJson);
+                if (!response.IsSuccessStatusCode) throw new HttpRequestException();
+                string jsonString = GetJsonContent(response);
+                return true;
+            }
         }
 
         public void Update(CollectionForm form)
         {
-            throw new NotImplementedException();
-        }
+            CollectionModel model = new CollectionModel { Id = form.Id, UserId = form.UserId, CardId = form.CardId, NbCard = form.NbCard };
+            JsonContent entityJson = JsonContent.Create(model);
+
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = client.PutAsync(new Uri(baseAddress.ToString() + "Collection/" + form.Id.ToString()), entityJson).Result;
+            if (!response.IsSuccessStatusCode) throw new HttpRequestException();
+            string jsonString = GetJsonContent(response);
+        }     
     }
 }
 
-//public int Id { get; set; }
-//public int UserId { get; set; }
-//public int CardId { get; set; }
-//public int NbCard { get; set; }
-//public int EditionId { get; set; }
-//public int ColorId { get; set; }
-
-//public string FirstName { get; set; }
-//public string LastName { get; set; }
-//public string CardName { get; set; }
-//public string EditionName { get; set; }
-//public string ColorName { get; set; }
