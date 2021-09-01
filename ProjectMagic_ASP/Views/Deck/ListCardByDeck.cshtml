@@ -1,0 +1,78 @@
+﻿@model IEnumerable<ProjectMagic_ASP.Models.CardInDeckModel>
+
+@{
+    ViewData["Title"] = "ListCardByDeck";
+}
+
+<h1>@Model.Select(m => m.DeckName).FirstOrDefault()</h1>
+
+<p>
+    <a asp-action="ListCardToAdd">Ajouter une carte</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                Nb
+            </th>
+            <th>
+                Nom
+            </th>
+            <th>
+                Coût
+            </th>
+
+            <th>
+                Puissance
+            </th>
+
+            <th>
+                Rareté
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Sous-type
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.NbCard)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.CardName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.PS)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.RarityName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SousTypeName)
+            </td>
+            @*<td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>*@
+        </tr>
+}
+    </tbody>
+</table>

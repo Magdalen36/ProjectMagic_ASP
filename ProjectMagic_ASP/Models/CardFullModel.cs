@@ -10,20 +10,13 @@ namespace ProjectMagic_ASP.Models
     public class CardFullModel
     {
         public string NameR { get; set; }
-        //public List<string> ListTypes { get; set; }
-        //public List<string> ListColors { get; set; }
-        //public List<string> ListRaretes { get; set; }
+ 
         public IEnumerable<CardModel> ListCards { get; set; }
         public IEnumerable<ColorModel> ListColors { get; set; }
+        public IEnumerable<SousTypeModel> ListSousTypes { get; set; }
         public IEnumerable<TypeModel> ListTypes { get; set; }
         public IEnumerable<RarityModel> ListRaretes { get; set; }
         
-
-        //Maybe ?
-        //public List<SelectListItem> ListColors = new List<SelectListItem>();
-
-        //Le plus propre serait de faire des modèles pour les types, colors, .. 
-        //Et de les traiter comme CardModel
 
         public CardFullModel()
         {

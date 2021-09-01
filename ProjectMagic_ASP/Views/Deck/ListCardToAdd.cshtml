@@ -1,0 +1,134 @@
+﻿@model ProjectMagic_ASP.Models.CardFullModel
+
+@{
+    ViewData["Title"] = "ListCardToAdd";
+}
+
+<h1>Créez votre deck</h1>
+
+<form asp-controller="Deck" asp-action="ListCardToAdd">
+
+    <div class="form-group">
+        <label class="control-label">Nom</label>
+
+        <input type="text" class="form-control" name="name" />
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Type</label>
+        @Html.DropDownList("type", new SelectList(Model.ListTypes.Select(l => l.Name)), "Types", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Sous-type</label>
+        @Html.DropDownList("sousType", new SelectList(Model.ListSousTypes.Select(l => l.Name)), "Sous-types", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Rareté</label>
+        @Html.DropDownList("rarity", new SelectList(Model.ListRaretes.Select(l => l.Name)), "Rareté", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Recherche" />
+    </div>
+
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nom
+            </th>
+            <th>
+                Coût
+            </th>
+            <th>
+                Rareté
+            </th>
+            <th>
+                Type de carte
+            </th>
+            <th>
+                Couleur
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ListCards) {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.CardName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.RarityName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeCardName)
+            </td>
+
+            @{ if (item.ColorName == "Rouge")
+                {
+                    <td style="color:#FF0000"> Rouge </td>
+                }
+                if (item.ColorName == "Bleu")
+                {
+                    <td style="color:#0000FF"> Bleu </td>
+                }
+                if (item.ColorName == "Vert")
+                {
+                    <td style="color:#4cff00"> Vert </td>
+                }
+                if (item.ColorName == "Noir")
+                {
+                    <td style="color:#000000"> Noir </td>
+                }
+                if (item.ColorName == "Blanc")
+                {
+                    <td style="color:#808080"> Blanc </td>
+                }
+                if (item.ColorName == "Multicolore")
+                {
+                    <td style="color:#b200ff"> Multicolore </td>
+                }
+                if (item.ColorName == "Incolore")
+                {
+                    <td style="color:#FFd000"> Incolore </td>
+                }
+            }
+
+            <td class="listIcons">
+                <a asp-area=""
+                   asp-controller="Viewer"
+                   asp-action="GetCardById"
+                   asp-route-id="@item.Id"><i class="far fa-question-circle"></i>Détail</a>
+
+            </td>
+
+            @if ((TempData["isLogged"]) != null && ((bool)TempData["isLogged"]) == true)
+            {
+                <td class="listIcons">
+
+                    @*<a asp-area=""
+                asp-controller="Collection"
+                asp-action="Insert"
+                asp-route-id="@item.Id"
+                asp-route-from="ListCard"><i class="fas fa-trophy"></i></a>*@
+                    @*@Html.ActionLink("", "Insert", new { controller = "Collection", id = item.Id, from = new UrlModel { Controller = "Viewer", Action = "ListCard" } }, new { @class = "fas fa-trophy" })*@
+                    @Html.ActionLink("", "InsertCard", new { controller = "Deck", id = item.Id, fromController = "Deck", fromAction = "ListCardToAdd" }, new { @class = "fas fa-dice" })
+
+                </td>
+            }
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,105 @@
+﻿@model IEnumerable<ProjectMagic_ASP.Models.DeckModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Bonjour @Model.Select(m => m.LastName).FirstOrDefault()</h2>
+<h3>Vos Decks</h3>
+
+<p>
+    <a asp-action="Create">Nouveau deck</a>
+</p>
+
+<div class="container">
+    <div class="row">
+
+        @foreach (var item in Model)
+            {
+        <div class="col-sm-4">
+            <h4>@Html.DisplayFor(modelItem => item.DeckName)</h4>
+            <p>@Html.DisplayFor(modelItem => item.NbCard) cartes</p>
+            <p>@Html.DisplayFor(modelItem => item.ColorName)</p>
+
+            <p>
+                <a asp-area=""
+                   asp-controller="Deck"
+                   asp-action="ListCardByDeck"
+                   asp-route-id="@item.Id"><i class="fab fa-wizards-of-the-coast"></i> Voir le deck</a>
+            </p>
+            <p>
+                <a asp-area=""
+                   asp-controller="Deck"
+                   asp-action="Update"
+                   asp-route-id="@item.Id"><i class="fas fa-pencil-alt"></i></a>
+                <span> | </span>
+                <a asp-area=""
+                   asp-controller="Deck"
+                   asp-action="Delete"
+                   asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i></a>
+            </p>
+
+
+
+
+        </div>
+            }
+            
+    </div>
+</div>
+
+@*<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeckName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeckName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NbCard)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Color)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("ListCardByDeck", "ListCardByDeck", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>*@

@@ -48,6 +48,8 @@ namespace ProjectMagic_ASP
             services.AddScoped<IService<TypeModel, TypeForm>, TypeService>();
             services.AddScoped<IService<SousTypeModel, SousTypeForm>, SousTypeService>();
             services.AddScoped<IService<RarityModel, RarityForm>, RarityService>();
+            services.AddScoped<IService<DeckModel, DeckForm>, DeckService>();
+            services.AddScoped<IService<CardInDeckModel, CardInDeckForm>, CardInDeckService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,44 @@
+﻿@model ProjectMagic_ASP.Models.Forms.DeckForm
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h3>Créer un nouveau deck</h3>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="DeckName" class="control-label"></label>
+                <input asp-for="DeckName" class="form-control" />
+                <span asp-validation-for="DeckName" class="text-danger"></span>
+            </div>
+
+            <div>
+                <select name="ColorId" class="form-control">
+                    <option value=1>Blanc</option>
+                    <option value=2>Vert</option>
+                    <option value=3>Bleu</option>
+                    <option value=4>Rouge</option>
+                    <option value=5>Noir</option>
+
+                    @*<option value="Multicolore">Multicolore</option>
+            <option value="Incolore">Incolore</option>*@
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Retour à la liste des decks</a>
+</div>
+
