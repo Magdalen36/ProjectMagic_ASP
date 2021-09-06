@@ -75,6 +75,8 @@ namespace ProjectMagic_ASP.Controllers
         public IActionResult GetCardById([FromRoute] int id)
         {
             TempData["isLogged"] = HttpContext.Session.Get<bool>("IsLogged");
+            TempData["DeckId"] = HttpContext.Session.Get<int>("DeckId");
+
             CardModel model = _cardService.GetById(id);
             return View(model);
         }
@@ -82,6 +84,7 @@ namespace ProjectMagic_ASP.Controllers
         public IActionResult ListCard(string name, string color, string type, string rarity)
         {
             TempData["isLogged"] = HttpContext.Session.Get<bool>("IsLogged");
+            
 
             CardFullModel cfm = new CardFullModel();
 

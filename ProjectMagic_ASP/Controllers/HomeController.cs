@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ProjectMagic_ASP.Models;
+using ProjectMagic_ASP.Tools;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,7 +22,7 @@ namespace ProjectMagic_ASP.Controllers
 
         public IActionResult Index()
         {
-
+            TempData["isLogged"] = HttpContext.Session.Get<bool>("IsLogged");
             return View();
         }
 

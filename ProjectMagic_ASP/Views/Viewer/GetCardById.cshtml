@@ -7,29 +7,35 @@
 @if (Model.ColorId == 1)
 {
     <div class="text-center">
-        <img src="/Image/White.png" /> <span class="h3">    @Model.CardName</span>
+        <img src="/Image/White.png" /> <span class="h3">  &nbsp;&nbsp;  @Model.CardName</span>
     </div>
 }
 @if (Model.ColorId == 2)
 {
     <div class="text-center">
-        <img src="/Image/Green.png" /> <span class="h3">    @Model.CardName</span>
+        <img src="/Image/Green.png" /> <span class="h3"> &nbsp;&nbsp;   @Model.CardName</span>
     </div>
 }
 @if (Model.ColorId == 3)
 {
     <div class="text-center">
-        <img src="/Image/Blue.png" /> <span class="h3">    @Model.CardName</span>
+        <img src="/Image/Blue.png" /> <span class="h3">  &nbsp;&nbsp;  @Model.CardName</span>
     </div>
 }@if (Model.ColorId == 4)
 {
     <div class="text-center">
-        <img src="/Image/Red.png" /> <span class="h3">    @Model.CardName</span>
+        <img src="/Image/Red.png" /> <span class="h3">  &nbsp;&nbsp;  @Model.CardName</span>
     </div>
 }@if (Model.ColorId == 5)
 {
     <div class="text-center">
-        <img src="/Image/Black.png" /> <span class="h3">    @Model.CardName</span>
+        <img src="/Image/Black.png" /> <span class="h3">  &nbsp;&nbsp;  @Model.CardName</span>
+    </div>
+}
+@if (Model.ColorId == 6 || Model.ColorId == 7)
+{
+    <div class="text-center">
+        <span class="h3">  &nbsp;&nbsp;  @Model.CardName</span>
     </div>
 }
 
@@ -41,6 +47,16 @@
         <span> Ajout à ma collection</span>
     </p>
 }
+
+@if((TempData["DeckId"]) != null && (int)(TempData["DeckId"]) !=0)
+{
+<p>
+    @Html.ActionLink("", "InsertCard", new { controller = "Deck", id = Model.Id, fromController = "Deck", fromAction = "ListCardToAdd" }, new { @class = "fas fa-dice" })
+    <span> Ajout au deck</span>
+</p>
+} 
+
+
 
 <div>
 
@@ -111,7 +127,7 @@
 </div>
 <div>
 
-    <a asp-action="Index">Retour à la liste de toutes les cartes</a> </br>
+    <a asp-action="Index">Retour à la liste de toutes les cartes</a> <br />
 
     @if ((TempData["isLogged"]) != null && ((bool)TempData["isLogged"]) == true)
     {

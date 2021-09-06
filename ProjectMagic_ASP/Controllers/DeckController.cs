@@ -152,7 +152,7 @@ namespace ProjectMagic_ASP.Controllers
         public IActionResult ListCardToAdd(string name, string sousType, string type, string rarity)
         {
             TempData["isLogged"] = HttpContext.Session.Get<bool>("IsLogged");
-
+            
             CardFullModel cfm = new CardFullModel();
 
             cfm.ListCards = _cardService.GetAll().Where(c => c.ColorId == HttpContext.Session.Get<int>("ColorId") || c.ColorId == 6); 

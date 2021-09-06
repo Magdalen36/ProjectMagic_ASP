@@ -87,6 +87,7 @@ namespace ProjectMagic_ASP.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Set<bool>("IsLogged", false);
+            HttpContext.Session.Set<int>("DeckId", 0);
             return RedirectToAction("Index", "Home");
         }
     }

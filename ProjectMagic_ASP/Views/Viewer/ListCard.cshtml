@@ -5,76 +5,41 @@
     //Layout = "../Shared/_AdminLayout.cshtml";
 }
 
-<h1>Liste des cartes</h1>
+<h3>Liste des cartes</h3>
 
 <form asp-controller="Viewer" asp-action="ListCard">
 
-    <div class="form-group">
-        <label class="control-label">Nom</label>
-       
-        <input type="text" class="form-control" name="name" />
+    <div class="border border-top p-2">
+        <div class="form-group">
+            <label class="control-label">Nom</label>
+            <input type="text" class="form-control" name="name" />
+        </div>
+
+        <div class="form-group">
+            <label class="control-label"></label>
+            @Html.DropDownList("color", new SelectList(Model.ListColors.Select(l => l.Name)), "Couleur", new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label class="control-label"></label>
+            @Html.DropDownList("type", new SelectList(Model.ListTypes.Select(l => l.Name)), "Types", new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label class="control-label"></label>
+            @Html.DropDownList("rarity", new SelectList(Model.ListRaretes.Select(l => l.Name)), "Rareté", new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Recherche" />
+        </div>
     </div>
-
-    <div class="form-group">
-        <label class="control-label">Couleur</label>
-
-
-     @Html.DropDownList("color", new SelectList(Model.ListColors.Select(l =>l.Name)), "Couleur", new { @class = "form-control" })
-
-        @*<select name="color" class="form-control">
-            <option value="">-</option>
-            <option value="Rouge">Rouge</option>
-            <option value="Bleu">Bleu</option>
-            <option value="Vert">Vert</option>
-            <option value="Blanc">Blanc</option>
-            <option value="Noir">Noir</option>
-            <option value="Multicolore">Multicolore</option>
-            <option value="Incolore">Incolore</option>
-        </select>*@
-    </div>
-
-    
-
-    <div class="form-group">
-        <label class="control-label">Type</label>
-
-        @Html.DropDownList("type", new SelectList(Model.ListTypes.Select(l => l.Name)), "Types", new { @class = "form-control" })
-
-        @*<select name="type" class="form-control">
-            <option value="">-</option>
-            <option value="Créatures">Créatures</option>
-            <option value="Artefacts">Artefacts</option>
-            <option value="Auras">Auras</option>
-            <option value="Enchantements">Enchantements</option>
-            <option value="Ephémères">Ephémères</option>
-            <option value="Arpenteurs">Arpenteurs</option>
-            <option value="Rituels">Rituels</option>
-            <option value="Terrains">Terrains</option>
-        </select>*@
-    </div>
-
-    <div class="form-group">
-        <label class="control-label">Rareté</label>
-        @Html.DropDownList("rarity", new SelectList(Model.ListRaretes.Select(l => l.Name)), "Rareté", new { @class = "form-control" })
-        @*<select name="rarity" class="form-control">
-            <option value="">-</option>
-            <option value="Mythiques">Mythiques</option>
-            <option value="Rares">Rares</option>
-            <option value="Peu communes">Peu communes</option>
-            <option value="Communes">Communes</option>
-        </select>*@
-    </div>
-
-    <div class="form-group">
-        <input type="submit" value="Recherche" />
-    </div>
-
 </form>
 
-<h4>Voici 30 cartes aléatoires</h4>
+<br />
 
-<p class="create">
-    <a class="nav-link text-dark" asp-area="" asp-controller="Viewer" asp-action="ListCard"><i class="create-icon fas fa-plus-square"></i> Nouveau tirage aléatoire</a>
+<p class="border border-top p-2 text-center ">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Viewer" asp-action="ListCard"><i class="create-icon fas fa-plus-square"></i> Nouveau tirage de 30 cartes aléatoires</a>
 </p>
 
 <table class="table">
