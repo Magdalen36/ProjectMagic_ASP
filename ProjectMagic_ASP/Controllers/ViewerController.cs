@@ -33,11 +33,13 @@ namespace ProjectMagic_ASP.Controllers
 
         public IActionResult Index()
         {
+            TempData["isLogged"] = HttpContext.Session.Get<bool>("IsLogged");
             return View();
         }
 
         public IActionResult ListEdition(string name)
         {
+            TempData["isLogged"] = HttpContext.Session.Get<bool>("IsLogged");
             IEnumerable<EditionModel> model = _editionService.GetAll();
 
             //Pour afficher les éditions "vides" 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using ProjectMagic.Services;
 using ProjectMagic_ASP.Models;
@@ -12,6 +13,7 @@ using ProjectMagic_ASP.Services.Bases;
 using ProjectMagic_ASP.Tools;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -74,6 +76,15 @@ namespace ProjectMagic_ASP
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseStaticFiles();
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(@"E:/COURS INFO/formation NET Sharepoint/Projet/ProjectMagic_ASP/ProjectMagic_ASP", "Image")),
+                RequestPath = "/Image"
+            });
 
             app.UseEndpoints(endpoints =>
             {

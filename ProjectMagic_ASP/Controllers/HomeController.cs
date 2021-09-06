@@ -20,6 +20,7 @@ namespace ProjectMagic_ASP.Controllers
 
         public IActionResult Index()
         {
+
             return View();
         }
 

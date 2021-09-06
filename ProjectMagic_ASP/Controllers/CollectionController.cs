@@ -23,12 +23,14 @@ namespace ProjectMagic_ASP.Controllers
 
         public IActionResult Index()
         {
+            TempData["isLogged"] = HttpContext.Session.Get<bool>("IsLogged");
             IEnumerable<CollectionModel> model = (_collectionService as CollectionService).GetAllById(HttpContext.Session.Get<int>("UserId"));
             return View(model);
         }
 
         public IActionResult Insert([FromRoute] int id, string fromController, string fromAction, string? fromId, string? fromMotiv)
         {
+            TempData["isLogged"] = HttpContext.Session.Get<bool>("IsLogged");
             //Gestion du nombre de cartes 
             // -> rechercher l'utilisateur
             // -> rechercher si il a déjà la carte en collection 

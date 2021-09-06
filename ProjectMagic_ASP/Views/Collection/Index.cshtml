@@ -11,11 +11,10 @@
 <table class="table">
     <thead>
         <tr>
-
+            <th> </th>
             <th>
                 Exemplaires
-            </th>
-           
+            </th>          
 
             <th>
                 Nom
@@ -32,7 +31,14 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-
+            @if(item.ColorId == 1) { <td style="background-color: rgba(235, 235, 235)">@*blanc*@</td>}
+            @if(item.ColorId == 2) { <td style="background-color: #2d7e0b">@*vert*@</td>}
+            @if(item.ColorId == 3) { <td style="background-color: rgba(35, 35, 255)">@*bleu*@</td>}
+            @if(item.ColorId == 4) { <td style="background-color: rgba(255, 0, 0)">@*rouge*@</td>}
+            @if(item.ColorId == 5) { <td style="background-color: rgba(0, 0, 0)">@*noir*@</td>}
+            @if(item.ColorId == 6) { <td style="background-color: rgba(255, 255, 255)">@*incolore*@</td>}
+            @if(item.ColorId == 7) { <td style="background-color: #65068e">@*multicolore*@</td>}
+            
             <td>
                 @Html.DisplayFor(modelItem => item.NbCard) <span>x</span>
             </td>
@@ -51,10 +57,10 @@
                 <a asp-area=""
                    asp-controller="Viewer"
                    asp-action="GetCardById"
-                   asp-route-id="@item.Id"><i class="far fa-question-circle"></i>Détail</a> 
+                   asp-route-id="@item.CardId"><i class="far fa-question-circle"></i></a> 
             </td>
 
-            <td class="listIcons">
+            <td class="listIcons text-center">
                 @*Ajouter et enlever*@
                 | @Html.ActionLink("", "Insert", new { controller = "Collection", id = item.CardId, fromController = "Collection", fromAction = "Index", fromMotiv = "plus" }, new { @class = "far fa-plus-square" })
                 @if (item.NbCard > 1)@Html.ActionLink("", "Insert", new { controller = "Collection", id = item.CardId, fromController = "Collection", fromAction = "Index", fromMotiv = "moins" }, new { @class = "far fa-minus-square" }) |

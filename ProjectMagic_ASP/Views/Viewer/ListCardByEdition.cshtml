@@ -8,7 +8,8 @@
 
 <table class="table">
     <thead>
-        <tr>          
+        <tr>  
+            <th> </th>
             <th>
                 Nom
             </th>
@@ -21,16 +22,41 @@
             <th>
                 Type de carte
             </th>
-            <th>
-                Couleur
-            </th>
+
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-
+            @if (item.ColorId == 1)
+            {
+                <td style="background-color: rgba(235, 235, 235)">@*blanc*@</td>
+}
+            @if (item.ColorId == 2)
+            {
+                <td style="background-color: #2d7e0b">@*vert*@</td>
+}
+            @if (item.ColorId == 3)
+            {
+                <td style="background-color: rgba(35, 35, 255)">@*bleu*@</td>
+}
+            @if (item.ColorId == 4)
+            {
+                <td style="background-color: rgba(255, 0, 0)">@*rouge*@</td>
+}
+            @if (item.ColorId == 5)
+            {
+                <td style="background-color: rgba(0, 0, 0)">@*noir*@</td>
+}
+            @if (item.ColorId == 6)
+            {
+                <td style="background-color: rgba(255, 255, 255)">@*incolore*@</td>
+}
+            @if (item.ColorId == 7)
+            {
+                <td style="background-color: #65068e">@*multicolore*@</td>
+}
             <td>
                 @Html.DisplayFor(modelItem => item.CardName)
             </td>
@@ -47,30 +73,28 @@
                 @Html.DisplayFor(modelItem => item.TypeCardName)
             </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.ColorName)
-            </td>
+          
 
             <td class="listIcons">
                 <a asp-area=""
                    asp-controller="Viewer"
                    asp-action="GetCardById"
-                   asp-route-id="@item.Id"><i class="far fa-question-circle"></i>Détail</a>
+                   asp-route-id="@item.Id"><i class="far fa-question-circle"></i></a>
 
             </td>
 
             @if ((TempData["isLogged"]) != null && ((bool)TempData["isLogged"]) == true)
             {
-        <td class="listIcons">
+                <td class="listIcons">
 
-            @*<a asp-area=""
-        asp-controller="Collection"
-        asp-action="Insert"
-        asp-route-id="@item.Id"><i class="fas fa-trophy"></i></a>*@
+                    @*<a asp-area=""
+                asp-controller="Collection"
+                asp-action="Insert"
+                asp-route-id="@item.Id"><i class="fas fa-trophy"></i></a>*@
 
-            @Html.ActionLink("", "Insert", new { controller = "Collection", id = item.Id, fromController = "Viewer", fromAction = "ListCardByEdition", fromId=item.EditionId }, new { @class = "fas fa-trophy" })
+                    @Html.ActionLink("", "Insert", new { controller = "Collection", id = item.Id, fromController = "Viewer", fromAction = "ListCardByEdition", fromId = item.EditionId }, new { @class = "fas fa-trophy" })
 
-        </td>
+                </td>
             }
         </tr>
 }

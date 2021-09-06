@@ -16,5 +16,12 @@ namespace ProjectMagic_ASP.Models
         public int NbCard { get; set; }
         public string ColorName { get; set; }
         public int ColorId { get; set; }
+
+        public IEnumerable<CardInDeckModel> cid { get; set; }
+        public int NbArpenteurs { get; set; }
+        public int NbCreatures { get; set; }
+        public int NbSorts { get; set; }
+        public int NbArtefacts { get; set; }
+        public int NbTerrains { get; set; }
     }
 }

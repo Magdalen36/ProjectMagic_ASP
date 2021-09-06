@@ -2,7 +2,27 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="align-middle">
+    <div class="text-center ">
+        <h1 class="display-4">Cartes Magic The Gathering</h1>
+        <p>Projet de fin de formation - Maud Perot - Technofutur TIC</p>
+    </div>
+
+    <div class="text-center">
+
+        <img src="/Image/White.png" class="rounded" />
+        <img src="/Image/Red.png" class="rounded" />
+        <img src="/Image/Green.png" class="rounded" />
+        <img src="/Image/Blue.png" class="rounded" />
+        <img src="/Image/Black.png" class="rounded" />
+    </div>
 </div>
+
+@if (TempData["isLogged"] == null)
+{
+
+    <div class=" = text-center">
+        <a asp-area="" asp-controller="User" asp-action="Create">S'enregistrer</a>
+        <a asp-area="" asp-controller="User" asp-action="Login">Se connecter</a>
+    </div>
+}

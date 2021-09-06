@@ -7,8 +7,9 @@
 <h2>Bonjour @Model.Select(m => m.LastName).FirstOrDefault()</h2>
 <h3>Vos Decks</h3>
 
-<p>
-    <a asp-action="Create">Nouveau deck</a>
+
+<p class="border border-top p-2 text-center ">
+    <a asp-action="Create"><i class="create-icon fas fa-plus-square"></i> Nouveau deck</a>
 </p>
 
 <div class="container">
@@ -16,29 +17,49 @@
 
         @foreach (var item in Model)
             {
-        <div class="col-sm-4">
-            <h4>@Html.DisplayFor(modelItem => item.DeckName)</h4>
-            <p>@Html.DisplayFor(modelItem => item.NbCard) cartes</p>
-            <p>@Html.DisplayFor(modelItem => item.ColorName)</p>
+        <div class="col-sm-4" >
 
-            <p>
-                <a asp-area=""
-                   asp-controller="Deck"
-                   asp-action="ListCardByDeck"
-                   asp-route-id="@item.Id"><i class="fab fa-wizards-of-the-coast"></i> Voir le deck</a>
-            </p>
-            <p>
-                <a asp-area=""
-                   asp-controller="Deck"
-                   asp-action="Update"
-                   asp-route-id="@item.Id"><i class="fas fa-pencil-alt"></i></a>
-                <span> | </span>
-                <a asp-area=""
-                   asp-controller="Deck"
-                   asp-action="Delete"
-                   asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i></a>
-            </p>
+            <div class="border border-dark text-dark p-2 rounded-top text-center" style="background-color: #e4dbc5">
 
+                @if (item.ColorId == 1)
+                {<div class="border border-dark bg-light w-auto h-25"><p></p></div><br />}
+                @if (item.ColorId == 2)
+                {<div class="border border-dark bg-success w-auto h-25"><p></p></div><br />}
+                @if (item.ColorId == 3)
+                {<div class="border border-dark bg-primary w-auto h-25"><p></p></div><br />}
+                @if (item.ColorId == 4)
+                {<div class="border border-dark bg-danger w-auto h-25"><p></p></div><br />}
+                @if (item.ColorId == 5)
+                {<div class="border border-dark bg-dark w-auto h-25"><p></p></div><br />}
+
+
+                <h4>@Html.DisplayFor(modelItem => item.DeckName)</h4>
+                <p>
+                    @Html.DisplayFor(modelItem => item.NbCard)  @if (item.NbCard < 2)
+                    {<span> carte</span> }
+                    else
+                    {<span> cartes</span>}
+                </p>
+                <p>@Html.DisplayFor(modelItem => item.ColorName)</p>
+
+                <p>
+                    <a asp-area=""
+                       asp-controller="Deck"
+                       asp-action="ListCardByDeck"
+                       asp-route-id="@item.Id"><i class="fab fa-wizards-of-the-coast"></i> Voir le deck</a>
+                </p>
+                <p>
+                    <a asp-area=""
+                       asp-controller="Deck"
+                       asp-action="Update"
+                       asp-route-id="@item.Id"><i class="fas fa-pencil-alt"></i></a>
+                    <span> | </span>
+                    <a asp-area=""
+                       asp-controller="Deck"
+                       asp-action="Delete"
+                       asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i></a>
+                </p>
+            </div>
 
 
 

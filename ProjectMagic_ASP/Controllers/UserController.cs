@@ -39,6 +39,7 @@ namespace ProjectMagic_ASP.Controllers
                 HttpContext.Session.Set<int>("UserId", form.Id);
                 TempData["succes"] = "Insertion effectuée";
                 HttpContext.Session.Set<bool>("IsLogged", true);
+                TempData["isLogged"] = HttpContext.Session.Get<bool>("IsLogged");
 
                 return RedirectToAction("Index", "Collection", new { id = HttpContext.Session.Get<int>("UserId") } ); 
             }
@@ -65,6 +66,7 @@ namespace ProjectMagic_ASP.Controllers
                 if (userId != 0)
                 {
                     HttpContext.Session.Set<bool>("IsLogged", true);
+                    TempData["isLogged"] = HttpContext.Session.Get<bool>("IsLogged");
                     HttpContext.Session.Set<int>("UserId", userId);
 
                     return RedirectToAction("Index", "Collection", new { id = HttpContext.Session.Get<int>("UserId") });
@@ -80,6 +82,12 @@ namespace ProjectMagic_ASP.Controllers
                 TempData["error"] = "formulaire invalide";
                 return View(form);
             }
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Set<bool>("IsLogged", false);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -35,32 +35,61 @@ namespace ProjectMagic_ASP.Controllers
 
         public IActionResult Index()
         {
+            TempData["isLogged"] = HttpContext.Session.Get<bool>("IsLogged");
+
             IEnumerable<DeckModel> model = (_deckService as DeckService).GetAllById(HttpContext.Session.Get<int>("UserId"));
 
             foreach (DeckModel item in model)
-            {
-                item.NbCard = (_cardInDeckService as CardInDeckService).GetAllByDeck(item.Id).Count();
-                //item.ColorName = (_cardInDeckService as CardInDeckService).GetAllByDeck(item.Id).Select(x => x.ColorName).FirstOrDefault();
+            {                
+                IEnumerable<CardInDeckModel> cid = (_cardInDeckService as CardInDeckService).GetAllByDeck(item.Id);
+                int count = 0;
+                foreach(CardInDeckModel card in cid)
+                {
+                    count += card.NbCard;
+                }
+                item.NbCard = count;
             }
             return View(model);
         }
 
         public IActionResult ListCardByDeck([FromRoute] int id)
         {
-            IEnumerable<CardInDeckModel> model = (_cardInDeckService as CardInDeckService).GetAllByDeck(id);
+            TempData["isLogged"] = HttpContext.Session.Get<bool>("IsLogged");
+
+            DeckModel dm = _deckService.GetById(id);
+            dm.cid = (_cardInDeckService as CardInDeckService).GetAllByDeck(id);
+            int nbArpenteurs = 0; int nbCreatures = 0; int nbSorts = 0; int nbArtefacts = 0; int nbTerrains =0; int nbCard = 0;
+            
+            foreach (CardInDeckModel item in dm.cid)
+            {
+                nbCard += item.NbCard;
+                switch (item.TypeId)
+                {
+                    case 1: nbArpenteurs+=item.NbCard; break;
+                    case 2: nbArtefacts+=item.NbCard; break;
+                    case 3: case 4: case 7: case 8: case 9: case 10: nbSorts+=item.NbCard; break;
+                    case 5: case 6: nbCreatures+=item.NbCard; break;
+                    case 11: nbTerrains += item.NbCard; break;
+                }
+            }
+            dm.NbArpenteurs = nbArpenteurs; dm.NbArtefacts = nbArtefacts; dm.NbCreatures = nbCreatures; dm.NbSorts = nbSorts; dm.NbTerrains = nbTerrains;
+            dm.NbCard = nbCard;
+
             HttpContext.Session.Set<int>("ColorId", _deckService.GetById(id).ColorId);
             HttpContext.Session.Set<int>("DeckId", id);
-            return View(model);
+            return View(dm);
         }
 
         //DECK
         public IActionResult Create()
         {
+            TempData["isLogged"] = HttpContext.Session.Get<bool>("IsLogged");
             return View();
         }
         [HttpPost]
         public IActionResult Create(DeckForm form)
         {
+            TempData["isLogged"] = HttpContext.Session.Get<bool>("IsLogged");
             if (ModelState.IsValid)
             {
                 form.UserId = HttpContext.Session.Get<int>("UserId");
@@ -92,6 +121,7 @@ namespace ProjectMagic_ASP.Controllers
         //DECK
         public IActionResult Update([FromRoute] int id)
         {
+            TempData["isLogged"] = HttpContext.Session.Get<bool>("IsLogged");
             DeckModel model = _deckService.GetById(id);
             DeckForm form = new DeckForm { Id = model.Id, UserId = model.UserId, DeckName = model.DeckName };
 
@@ -103,6 +133,7 @@ namespace ProjectMagic_ASP.Controllers
         [HttpPost]
         public IActionResult Update(DeckForm form)
         {
+            TempData["isLogged"] = HttpContext.Session.Get<bool>("IsLogged");
             if (ModelState.IsValid)
             {
                 DeckModel model = _deckService.GetById(form.Id);
@@ -148,10 +179,9 @@ namespace ProjectMagic_ASP.Controllers
         //CARD
         public IActionResult InsertCard([FromRoute] int id, string fromController, string fromAction, string? fromId, string? fromMotiv)
         {
-
+            TempData["isLogged"] = HttpContext.Session.Get<bool>("IsLogged");
             //Gestion du nombre de cartes dans un deck 
-            //1.Vérifier que la carte n'est pas déjà dans le deck. Si oui, gestion du nombre
-            //2.Vérifier le nombre de cartes que l'on peut mettre selon la rareté 
+            //Vérifier que la carte n'est pas déjà dans le deck. Si oui, gestion du nombre => update
 
             IEnumerable<CardInDeckModel> cid = _cardInDeckService.GetAll().Where(x => x.DeckId == HttpContext.Session.Get<int>("DeckId"));
             CardInDeckModel model = cid.Where(x => x.CardId == id).FirstOrDefault();
@@ -162,6 +192,7 @@ namespace ProjectMagic_ASP.Controllers
                 else if (fromMotiv == "moins")  temp--; 
                 else if (model != null) temp++;
                 if (temp == 0) { /*delete*/ }
+                if (temp > 4) temp = 4; //pas plus de 4x une carte de même nom
 
                 //update du nombre si existe
                 CardInDeckForm form = new CardInDeckForm { Id = model.Id, CardId = model.CardId, DeckId = model.DeckId, NbCard = temp };
@@ -191,6 +222,47 @@ namespace ProjectMagic_ASP.Controllers
                 return RedirectToAction(fromAction, fromController);
             else
                 return RedirectToAction(fromAction, new { Controller = fromController, id = fromId });
+        }
+
+        //CARTE
+        public IActionResult DeleteCard([FromRoute] int id)
+        {
+
+            if (_cardInDeckService.Delete(id))
+            {
+                TempData["success"] = "Suppression OK";
+            }
+            else
+            {
+                TempData["error"] = "Erreur de suppression";
+            }
+            //pas de vue, on redirige direct
+            return RedirectToAction("ListCardByDeck", new { id = HttpContext.Session.Get<int>("DeckId") });
+        }
+
+        public IActionResult AdapterTerrain([FromRoute] int id) //id n'est pas un id, mais le nombre de cartes
+        {
+            TempData["isLogged"] = HttpContext.Session.Get<bool>("IsLogged");
+            //Vérifier si les terrains ont déjà été calculés une fois 
+            CardInDeckModel cm = _cardInDeckService.GetAll().Where(c => c.TypeId == 11).FirstOrDefault();
+            if(cm!= null)
+            {
+                //enlever les terrains
+                id -= cm.NbCard;
+                _cardInDeckService.Delete(cm.Id);
+            }
+
+            //Lorsque le deck contient au moins 40 cartes, on peut rajouter des terrains
+            if(id >= 40)
+            {
+                int nbTerrain = id / 2 ;
+
+                int cardId = _cardService.GetAll().Where(c => c.TypeCardId == 11 && c.ColorId == HttpContext.Session.Get<int>("ColorId")).Select(c => c.Id).FirstOrDefault();
+
+                CardInDeckForm cf = new CardInDeckForm { CardId = cardId, DeckId = HttpContext.Session.Get<int>("DeckId"), NbCard = nbTerrain };
+                _cardInDeckService.Insert(cf);
+            }
+            return RedirectToAction("ListCardByDeck", new { id = HttpContext.Session.Get<int>("DeckId") });
         }
     }
 }
