@@ -4,11 +4,16 @@
     ViewData["Title"] = "ListCardByDeck";
 }
 
-<h1 class="text-center">@Model.cid.Select(m => m.DeckName).FirstOrDefault()</h1>
+
 
 <div class="border border-dark text-dark p-2">
+
+    <h2 class="text-center border-bottom pb-3">@Model.cid.Select(m => m.DeckName).FirstOrDefault()</h2> 
+    <h5 class="text-center">(@Model.NbCard carte<span>@if (Model.NbCard > 1)
+{<span>s</span>})</span></h5>
+
     <div class="row">
-        <div class="col ml-2">
+        <div class="col pl-5  pb-3">
             Arpenteurs : @Model.NbArpenteurs
             <br />Créatures : @Model.NbCreatures
             <br />Artefacts : @Model.NbArtefacts
@@ -17,28 +22,34 @@
             <br />
         </div>
 
-        <div class="col text-right ml-2">
-            @if (Model.ColorId == 1){<img src="/Image/White.png" />}
-            @if (Model.ColorId == 2){<img src="/Image/Green.png" />}
-            @if (Model.ColorId == 3){<img src="/Image/Blue.png" />}
-            @if (Model.ColorId == 4){<img src="/Image/Red.png" />}
-            @if (Model.ColorId == 5){<img src="/Image/Black.png" />}
+        <div class="col text-right pr-5">
+                @if (Model.ColorId == 1)
+                {<img src="/Image/White.png" />}
+                @if (Model.ColorId == 2)
+                {<img src="/Image/Green.png" />}
+                @if (Model.ColorId == 3)
+                {<img src="/Image/Blue.png" />}
+                @if (Model.ColorId == 4)
+                {<img src="/Image/Red.png" />}
+                @if (Model.ColorId == 5)
+                {<img src="/Image/Black.png" />}            
+            
         </div>
     </div>
+    <p class="border border-top p-2 text-center ">
+        <a asp-action="ListCardToAdd"><i class="create-icon fas fa-plus-square"></i> Ajouter une carte <i class="create-icon fas fa-plus-square"></i></a>
+    </p>
+
+    @if (Model.NbCard >= 40)
+    {
         <p class="border border-top p-2 text-center ">
-            <a asp-action="ListCardToAdd"><i class="create-icon fas fa-plus-square"></i> Ajouter une carte</a>
+            <a asp-action="AdapterTerrain" asp-route-id="@Model.NbCard"><i class="create-icon fas fa-plus-square"></i> Calculez les terrains <i class="create-icon fas fa-plus-square"></i></a>
+            @*@Html.ActionLink("Ajoutez vos terrains", "AdapterTerrain", new { nb = Model.NbCard }, new { @class = "far fa-plus-square" })*@
         </p>
-
-        @if (Model.NbCard >= 40)
-        {
-            <p class="border border-top p-2 text-center ">
-                <a asp-action="AdapterTerrain" asp-route-id="@Model.NbCard"><i class="create-icon fas fa-plus-square"></i> Calculez les terrains</a>
-                @*@Html.ActionLink("Ajoutez vos terrains", "AdapterTerrain", new { nb = Model.NbCard }, new { @class = "far fa-plus-square" })*@
-            </p>
-        }
+    }
 
 
-    </div>
+</div>
 
 
     <table class="table">
@@ -74,67 +85,92 @@
         <tbody>
             @foreach (var item in Model.cid)
             {
-                <tr>
-                    @if (item.ColorId == 1)
-                    {
-                        <td style="background-color: rgba(235, 235, 235)">@*blanc*@</td>
-                    }
-                    @if (item.ColorId == 2)
-                    {
-                        <td style="background-color: #2d7e0b">@*vert*@</td>
-                    }
-                    @if (item.ColorId == 3)
-                    {
-                        <td style="background-color: rgba(35, 35, 255)">@*bleu*@</td>
-                    }
-                    @if (item.ColorId == 4)
-                    {
-                        <td style="background-color: rgba(255, 0, 0)">@*rouge*@</td>
-                    }
-                    @if (item.ColorId == 5)
-                    {
-                        <td style="background-color: rgba(0, 0, 0)">@*noir*@</td>
-                    }
-                    @if (item.ColorId == 6)
-                    {
-                        <td style="background-color: rgba(255, 255, 255)">@*incolore*@</td>
-                    }
-                    @if (item.ColorId == 7)
-                    {
-                        <td style="background-color: #65068e">@*multicolore*@</td>
-                    }
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NbCard) <span> x</span>
-                    </td>
+            <tr>
+                @if (item.ColorId == 1)
+                {
+                    <td style="background-color: rgba(255, 255, 255)">@*blanc*@</td>
+                }
+                @if (item.ColorId == 2)
+                {
+                    <td style="background-color: #6AC78C ">@*vert*@</td>
+                }
+                @if (item.ColorId == 3)
+                {
+                    <td style="background-color: #87D9FE">@*bleu*@</td>
+                }
+                @if (item.ColorId == 4)
+                {
+                    <td style="background-color: #EC8F76">@*rouge*@</td>
+                }
+                @if (item.ColorId == 5)
+                {
+                    <td style="background-color: rgba(0, 0, 0)">@*noir*@</td>
+                }
+                @if (item.ColorId == 6)
+                {
+                    <td style="background-color: rgba(255, 255, 255,0)">@*incolore*@</td>
+                }
+                @if (item.ColorId == 7)
+                {
+                    <td style="background-color: #BB9EF6">@*multicolore*@</td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.NbCard) <span> x</span>
+                </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CardName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cost)
-                    </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CardName)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.Cost)*@
+                    @foreach (char i in item.Cost)
+                    {
+                        switch (i)
+                        {
+                            case '1':
+                            case '2':
+                            case '3':
+                            case '4':
+                            case '5':
+                            case '6':
+                            case '7':
+                            case '8':
+                            case '9':<span>@i</span>; break;
+                        case 'U': <img src="/Image/Blue.png" width="20" height="20" />break;
+                        case 'R': <img src="/Image/Red.png" width="20" height="20" />break;
+                        case 'G': <img src="/Image/Green.png" width="20" height="20" />break;
+                        case 'W': <img src="/Image/White.png" width="20" height="20" />break;
+                        case 'B': <img src="/Image/Black.png" width="20" height="20" />break;
+                    }
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PS)
-                    </td>
+                }
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RarityName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TypeName)
-                    </td>
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.SousTypeName)
-                        </td>*@
-                    <td class="listIcons">
+                </td>
 
-                        <a asp-area=""
-                           asp-controller="Viewer"
-                           asp-action="GetCardById"
-                           asp-route-id="@item.CardId"><i class="far fa-question-circle"></i></a>
-                    </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PS)
+                </td>
 
+                <td>
+                    @Html.DisplayFor(modelItem => item.RarityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeName)
+                </td>
+                @*<td>
+            @Html.DisplayFor(modelItem => item.SousTypeName)
+        </td>*@
+                <td class="listIcons">
+
+                    <a asp-area=""
+                       asp-controller="Viewer"
+                       asp-action="GetCardById"
+                       asp-route-id="@item.CardId"><i class="far fa-question-circle"></i></a>
+                </td>
+
+
+                @if (item.TypeId != 11)
+                {
                     <td class="listIcons text-center">
                         @*Ajouter et enlever*@
                         | @if (item.NbCard < 4)@Html.ActionLink("", "InsertCard", new { controller = "Deck", id = item.CardId, fromController = "Deck", fromAction = "ListCardByDeck", fromMotiv = "plus", fromId = Model.Id }, new { @class = "far fa-plus-square" })
@@ -142,14 +178,18 @@
                         @if (item.NbCard > 1)@Html.ActionLink("", "InsertCard", new { controller = "Deck", id = item.CardId, fromController = "Deck", fromAction = "ListCardByDeck", fromMotiv = "moins", fromId = Model.Id }, new { @class = "far fa-minus-square" }) |
                     </td>
 
-
                     <td class="listIcons">
                         <a asp-controller="Deck"
                            asp-action="DeleteCard"
                            asp-route-id="@item.Id"
                            class="delete-link"><i class="delete-icon fas fa-trash-alt"></i></a>
                     </td>
-                </tr>
+
+                }
+
+
+
+            </tr>
             }
         </tbody>
     </table>

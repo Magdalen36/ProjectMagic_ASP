@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Bonjour @Model.Select(m => m.LastName).FirstOrDefault()</h2>
+<h2>Bonjour @Model.Select(m => m.FirstName).FirstOrDefault()</h2>
 <h3>Vos Decks</h3>
 
 
@@ -17,9 +17,9 @@
 
         @foreach (var item in Model)
             {
-        <div class="col-sm-4" >
+        <div class="col-sm-4 mb-4 " >
 
-            <div class="border border-dark text-dark p-2 rounded-top text-center" style="background-color: #e4dbc5">
+            <div class="border-right border-left border-dark text-dark p-2 rounded text-center" style="background-color: #e4dbc5">
 
                 @if (item.ColorId == 1)
                 {<div class="border border-dark bg-light w-auto h-25"><p></p></div><br />}
@@ -61,66 +61,9 @@
                 </p>
             </div>
 
-
-
         </div>
-            }
-            
+            }            
     </div>
 </div>
 
-@*<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DeckName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DeckName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NbCard)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Color)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("ListCardByDeck", "ListCardByDeck", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>*@
+

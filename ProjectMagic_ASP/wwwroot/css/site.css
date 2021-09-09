@@ -12,17 +12,29 @@ a {
     color: #a00303;
 }
 
+    a:hover {
+        color: #ff3535;
+    }
+
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #000;
+    background-color: #e4dbc5;
+    border-color: #5a3131;
 }
 
+    .btn-primary:hover{
+        color: #000;
+        background-color: #f8f5e4;
+        border-color: #f8f5e4;
+    }
+
+
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #a00303;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
+
 
 /* Sticky footer styles
 -------------------------------------------------- */

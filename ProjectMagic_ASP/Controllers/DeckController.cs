@@ -155,7 +155,7 @@ namespace ProjectMagic_ASP.Controllers
             
             CardFullModel cfm = new CardFullModel();
 
-            cfm.ListCards = _cardService.GetAll().Where(c => c.ColorId == HttpContext.Session.Get<int>("ColorId") || c.ColorId == 6); 
+            cfm.ListCards = _cardService.GetAll().Where(c => c.ColorId == HttpContext.Session.Get<int>("ColorId") || c.ColorId == 6).Where(c => c.TypeCardId != 11); 
             cfm.ListSousTypes = _sousTypeService.GetAll();
             cfm.ListRaretes = _rarityService.GetAll();
             cfm.ListTypes = _typeService.GetAll();

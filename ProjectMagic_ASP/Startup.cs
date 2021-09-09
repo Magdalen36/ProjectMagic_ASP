@@ -68,7 +68,7 @@ namespace ProjectMagic_ASP
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+         
 
             app.UseSession();
             SessionUtils.Services = app.ApplicationServices;
@@ -82,7 +82,10 @@ namespace ProjectMagic_ASP
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
-                    Path.Combine(@"E:/COURS INFO/formation NET Sharepoint/Projet/ProjectMagic_ASP/ProjectMagic_ASP", "Image")),
+                // Pour le pc fixe
+                // Path.Combine(@"E:/COURS INFO/formation NET Sharepoint/Projet/ProjectMagic_ASP/ProjectMagic_ASP", "Image")),
+                // Pour le pc portable
+                Path.Combine(@"C:\Users\Maud\Desktop\DogStudio Show\ProjectMagic_ASPmvc\ProjectMagic_ASP", "Image")),
                 RequestPath = "/Image"
             });
 

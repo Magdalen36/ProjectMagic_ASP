@@ -39,8 +39,10 @@
 <br />
 
 <p class="border border-top p-2 text-center ">
-    <a class="nav-link text-dark" asp-area="" asp-controller="Viewer" asp-action="ListCard"><i class="create-icon fas fa-plus-square"></i> Nouveau tirage de 30 cartes aléatoires</a>
+    <a asp-area="" asp-controller="Viewer" asp-action="ListCard"><i class="create-icon fas fa-plus-square"></i> Nouveau tirage de 30 cartes aléatoires <i class="create-icon fas fa-plus-square"></i></a>
 </p>
+
+
 
 <table class="table">
     <thead>
@@ -68,19 +70,19 @@
         <tr>
             @if (item.ColorId == 1)
             {
-                <td style="background-color: rgba(235, 235, 235)">@*blanc*@</td>
+                <td style="background-color: rgba(255, 255, 255)">@*blanc*@</td>
 }
             @if (item.ColorId == 2)
             {
-                <td style="background-color: #2d7e0b">@*vert*@</td>
+                <td style="background-color: #6AC78C ">@*vert*@</td>
 }
             @if (item.ColorId == 3)
             {
-                <td style="background-color: rgba(35, 35, 255)">@*bleu*@</td>
+                <td style="background-color: #87D9FE">@*bleu*@</td>
 }
             @if (item.ColorId == 4)
             {
-                <td style="background-color: rgba(255, 0, 0)">@*rouge*@</td>
+                <td style="background-color: #EC8F76">@*rouge*@</td>
 }
             @if (item.ColorId == 5)
             {
@@ -88,18 +90,38 @@
 }
             @if (item.ColorId == 6)
             {
-                <td style="background-color: rgba(255, 255, 255)">@*incolore*@</td>
+                <td style="background-color: rgba(255, 255, 255,0)">@*incolore*@</td>
 }
             @if (item.ColorId == 7)
             {
-                <td style="background-color: #65068e">@*multicolore*@</td>
+                <td style="background-color: #BB9EF6">@*multicolore*@</td>
 }
             <td>
                 @Html.DisplayFor(modelItem => item.CardName)
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => item.Cost)
+                @foreach (char i in item.Cost)
+                {
+                    switch (i)
+                    {
+                        case '1':
+                        case '2':
+                        case '3':
+                        case '4':
+                        case '5':
+                        case '6':
+                        case '7':
+                        case '8':
+                        case '9':<span>@i</span>; break;
+                    case 'U': <img src="/Image/Blue.png" width="20" height="20" />break;
+                    case 'R': <img src="/Image/Red.png" width="20" height="20" />break;
+                    case 'G': <img src="/Image/Green.png" width="20" height="20" />break;
+                    case 'W': <img src="/Image/White.png" width="20" height="20" />break;
+                    case 'B': <img src="/Image/Black.png" width="20" height="20" />break;
+                }
+
+            }
             </td>
 
             <td>

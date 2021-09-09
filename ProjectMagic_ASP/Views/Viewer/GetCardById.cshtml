@@ -48,12 +48,15 @@
     </p>
 }
 
-@if((TempData["DeckId"]) != null && (int)(TempData["DeckId"]) !=0)
+@if((TempData["DeckId"]) != null && (int)(TempData["DeckId"]) !=0  && Model.TypeCardId != 11)
 {
-<p>
-    @Html.ActionLink("", "InsertCard", new { controller = "Deck", id = Model.Id, fromController = "Deck", fromAction = "ListCardToAdd" }, new { @class = "fas fa-dice" })
-    <span> Ajout au deck</span>
-</p>
+    if(((int)(TempData["ColorId"]) == Model.ColorId) || Model.ColorId == 6)
+                {
+                    <p>
+                        @Html.ActionLink("", "InsertCard", new { controller = "Deck", id = Model.Id, fromController = "Deck", fromAction = "ListCardToAdd" }, new { @class = "fas fa-dice" })
+                        <span> Ajout au deck</span>
+                    </p>
+                }
 } 
 
 
@@ -73,7 +76,27 @@
             Coût :
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Cost)
+            @foreach (char i in Model.Cost)
+            {
+                switch (i)
+                {
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                    case '5':
+                    case '6':
+                    case '7':
+                    case '8':
+                    case '9':<span>@i</span>; break;
+                case 'U': <img src="/Image/Blue.png" width="20" height="20" />break;
+                case 'R': <img src="/Image/Red.png" width="20" height="20" />break;
+                case 'G': <img src="/Image/Green.png" width="20" height="20" />break;
+                case 'W': <img src="/Image/White.png" width="20" height="20" />break;
+                case 'B': <img src="/Image/Black.png" width="20" height="20" />break;
+            }
+
+        }
         </dd>
         <dt class="col-sm-2">
             Force / Défense :

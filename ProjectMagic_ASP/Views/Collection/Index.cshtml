@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Bonjour @Model.Select(m => m.LastName).FirstOrDefault()</h2>
+<h2>Bonjour @Model.Select(m => m.FirstName).FirstOrDefault()</h2>
 <h3>Votre collection</h3>
 
 
@@ -31,14 +31,35 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            @if(item.ColorId == 1) { <td style="background-color: rgba(235, 235, 235)">@*blanc*@</td>}
-            @if(item.ColorId == 2) { <td style="background-color: #2d7e0b">@*vert*@</td>}
-            @if(item.ColorId == 3) { <td style="background-color: rgba(35, 35, 255)">@*bleu*@</td>}
-            @if(item.ColorId == 4) { <td style="background-color: rgba(255, 0, 0)">@*rouge*@</td>}
-            @if(item.ColorId == 5) { <td style="background-color: rgba(0, 0, 0)">@*noir*@</td>}
-            @if(item.ColorId == 6) { <td style="background-color: rgba(255, 255, 255)">@*incolore*@</td>}
-            @if(item.ColorId == 7) { <td style="background-color: #65068e">@*multicolore*@</td>}
-            
+            @if (item.ColorId == 1)
+            {
+                <td style="background-color: rgba(255, 255, 255)">@*blanc*@</td>
+            }
+            @if (item.ColorId == 2)
+            {
+                <td style="background-color: #6AC78C ">@*vert*@</td>
+            }
+            @if (item.ColorId == 3)
+            {
+                <td style="background-color: #87D9FE">@*bleu*@</td>
+            }
+            @if (item.ColorId == 4)
+            {
+                <td style="background-color: #EC8F76">@*rouge*@</td>
+            }
+            @if (item.ColorId == 5)
+            {
+                <td style="background-color: rgba(0, 0, 0)">@*noir*@</td>
+            }
+            @if (item.ColorId == 6)
+            {
+                <td style="background-color: rgba(255, 255, 255,0)">@*incolore*@</td>
+            }
+            @if (item.ColorId == 7)
+            {
+                <td style="background-color: #BB9EF6">@*multicolore*@</td>
+            }
+
             <td>
                 @Html.DisplayFor(modelItem => item.NbCard) <span>x</span>
             </td>
@@ -57,7 +78,7 @@
                 <a asp-area=""
                    asp-controller="Viewer"
                    asp-action="GetCardById"
-                   asp-route-id="@item.CardId"><i class="far fa-question-circle"></i></a> 
+                   asp-route-id="@item.CardId"><i class="far fa-question-circle"></i></a>
             </td>
 
             <td class="listIcons text-center">

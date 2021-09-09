@@ -76,6 +76,7 @@ namespace ProjectMagic_ASP.Controllers
         {
             TempData["isLogged"] = HttpContext.Session.Get<bool>("IsLogged");
             TempData["DeckId"] = HttpContext.Session.Get<int>("DeckId");
+            TempData["ColorId"] = HttpContext.Session.Get<int>("ColorId");
 
             CardModel model = _cardService.GetById(id);
             return View(model);
